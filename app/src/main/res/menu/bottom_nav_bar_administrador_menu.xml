@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/opcionProductos_a"
+        android:title="@string/opcionProductos_a"
+        android:icon="@drawable/icono_productos"
+        />
+
+    <item
+        android:id="@+id/opcionAgregarProducto_a"
+        android:title=""
+        android:enabled="false"
+        />
+
+    <item
+        android:id="@+id/opcionPedidos_a"
+        android:title="@string/opcionPedidos_a"
+        android:icon="@drawable/icono_pedidos"
+        />
+
+</menu>

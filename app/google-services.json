@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "956404146006",
+    "project_id": "slopshop-b2836",
+    "storage_bucket": "slopshop-b2836.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:956404146006:android:c193c265808d068e7ac0f7",
+        "android_client_info": {
+          "package_name": "com.example.slopshop"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBAGg5s5g5mJ4kpNsogaOex9YJorqawuHo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
