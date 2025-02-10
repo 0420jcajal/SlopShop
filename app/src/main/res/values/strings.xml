@@ -10,4 +10,6 @@
     <string name="opcionPedidos_a">Pedidos</string>
 
     <string name="textoInicio">Bienvenid@ a SlopShop</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
