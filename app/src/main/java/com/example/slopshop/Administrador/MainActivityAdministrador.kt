@@ -48,10 +48,11 @@ class MainActivityAdministrador : AppCompatActivity() , NavigationView.OnNavigat
     private fun cambiarFragmento(fragment: Fragment) {
         supportFragmentManager
             .beginTransaction()
-            .replace(R.id.navPart, fragment)
+            .replace(R.id.navFragment, fragment)
             .commit()
     }
 
+    @Override
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.opcionInicio_a->{

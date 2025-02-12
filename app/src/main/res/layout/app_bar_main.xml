@@ -7,7 +7,7 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <androidx.appcompat.widget.Toolbar
@@ -20,7 +20,7 @@
     </com.google.android.material.appbar.AppBarLayout>
     
     <FrameLayout
-        android:id="@+id/navPart"
+        android:id="@+id/navFragment"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/appBarLayout"
         android:layout_width="match_parent"
