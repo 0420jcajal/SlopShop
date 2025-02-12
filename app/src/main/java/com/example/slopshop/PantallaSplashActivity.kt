@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import androidx.appcompat.app.AppCompatActivity
+import com.example.slopshop.Administrador.MainActivityAdministrador
 
 
 class PantallaSplashActivity : AppCompatActivity() {
@@ -20,7 +21,7 @@ class PantallaSplashActivity : AppCompatActivity() {
             }
 
             override fun onFinish() {
-                startActivity(Intent(applicationContext, MainActivity::class.java))
+                startActivity(Intent(applicationContext, MainActivityAdministrador::class.java))
                 finishAffinity()
             }
 

@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">SlopShop</string>
 
+    <string name="abrir_drawer">Abrir drawer</string>
+    <string name="cerrar_drawer">Cerrar drawer</string>
+
     <string name="opcionInicio_a">Inicio</string>
     <string name="opcionTienda_a">Mi tienda</string>
     <string name="opcionReseñas_a">Reseñas</string>
