@@ -1,5 +1,6 @@
 package com.example.slopshop.Administrador
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
@@ -16,10 +17,13 @@ import com.example.slopshop.Administrador.Nav_Fragments_Administardor.FragmentTi
 import com.example.slopshop.R
 import com.example.slopshop.databinding.ActivityMainAdministradorBinding
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
 
 class MainActivityAdministrador : AppCompatActivity() , NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var binding : ActivityMainAdministradorBinding
+    private var firebaseAuth : FirebaseAuth?=null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainAdministradorBinding.inflate(layoutInflater)
@@ -27,6 +31,9 @@ class MainActivityAdministrador : AppCompatActivity() , NavigationView.OnNavigat
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
+
+        firebaseAuth=FirebaseAuth.getInstance()
+        comprobarSesion()
 
         binding.navigationView.setNavigationItemSelectedListener(this)
 
@@ -43,6 +50,14 @@ class MainActivityAdministrador : AppCompatActivity() , NavigationView.OnNavigat
         cambiarFragmento(FragmentInicioA())
         binding.navigationView.setCheckedItem(R.id.opcionInicio_a)
 
+    }
+
+    private fun comprobarSesion() {
+        if(firebaseAuth!!.currentUser==null){
+            startActivity(Intent(applicationContext,RegistroAdministradorActivity::class.java))
+        }else{
+            Toast.makeText(applicationContext, "Bienvenido de nuevo!", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun cambiarFragmento(fragment: Fragment) {

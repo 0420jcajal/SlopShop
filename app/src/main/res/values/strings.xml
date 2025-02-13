@@ -14,7 +14,7 @@
     <string name="textoInicio">Bienvenid@ a SlopShop</string>
     
     <!--PARTE DEL ADMINISTRADOR-->
-    <string name="txtRegistroA">Registro de administrador</string>
+    <string name="txtRegistroA">Registro administrador</string>
     <string name="NombreA">Nombre y Apellidos</string>
     <string name="EmailA">Email</string>
     <string name="ContrasenaA">Contraseña</string>
