@@ -56,7 +56,7 @@ class MainActivityAdministrador : AppCompatActivity() , NavigationView.OnNavigat
         if(firebaseAuth!!.currentUser==null){
             startActivity(Intent(applicationContext,RegistroAdministradorActivity::class.java))
         }else{
-            Toast.makeText(applicationContext, "Bienvenido de nuevo!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, "Bienvenido a SlopShop", Toast.LENGTH_SHORT).show()
         }
     }
 

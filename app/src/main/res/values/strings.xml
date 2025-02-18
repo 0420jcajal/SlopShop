@@ -12,7 +12,7 @@
     <string name="opcionProductos_a">Mis Productos</string>
     <string name="opcionPedidos_a">Pedidos</string>
     <string name="textoInicio">Bienvenid@ a SlopShop</string>
-    
+
     <!--PARTE DEL ADMINISTRADOR-->
     <string name="txtRegistroA">Registro administrador</string>
     <string name="NombreA">Nombre y Apellidos</string>
