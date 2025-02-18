@@ -51,10 +51,15 @@ class MainActivityAdministrador : AppCompatActivity() , NavigationView.OnNavigat
         binding.navigationView.setCheckedItem(R.id.opcionInicio_a)
 
     }
-
+    private fun cerrarSession(){
+        firebaseAuth!!.signOut()
+        startActivity(Intent(applicationContext, LoginAdministradorActivity::class.java))
+        finish()
+        Toast.makeText(applicationContext, "Has cerrado sesión correctamente", Toast.LENGTH_SHORT).show()
+    }
     private fun comprobarSesion() {
         if(firebaseAuth!!.currentUser==null){
-            startActivity(Intent(applicationContext,RegistroAdministradorActivity::class.java))
+            startActivity(Intent(applicationContext,LoginAdministradorActivity::class.java))
         }else{
             Toast.makeText(applicationContext, "Bienvenido a SlopShop", Toast.LENGTH_SHORT).show()
         }
@@ -80,7 +85,7 @@ class MainActivityAdministrador : AppCompatActivity() , NavigationView.OnNavigat
                 cambiarFragmento(FragmentResenas())
             }
             R.id.opcionCerrarSesion_a->{
-                Toast.makeText(applicationContext, "Cerraste sesión correctamente", Toast.LENGTH_SHORT).show()
+                cerrarSession()
             }
             R.id.opcionProductos_a->{
                 cambiarFragmento(FragmentProductosA())
