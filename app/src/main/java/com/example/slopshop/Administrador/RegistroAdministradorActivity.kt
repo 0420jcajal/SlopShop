@@ -3,6 +3,7 @@ package com.example.slopshop.Administrador
 import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.util.Patterns
 import android.widget.Toast
 
@@ -109,7 +110,7 @@ class RegistroAdministradorActivity : AppCompatActivity() {
             .addOnFailureListener {e->
                 progressDialog.dismiss()
                 Toast.makeText(this, "La base no se registro correctamente debido a ${e.message}", Toast.LENGTH_SHORT).show()
-
+                Log.e("Auth", "Error al iniciar sesión: ${e.message}")
             }
 
     }
