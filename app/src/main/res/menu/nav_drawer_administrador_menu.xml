@@ -9,26 +9,26 @@
 
         <item
             android:id="@+id/opcionInicio_a"
-            android:title="@string/opcionInicio_a"
+            android:title="@string/opcionInicio"
             android:icon="@drawable/icono_inicio"
             />
 
         <item
             android:id="@+id/opcionTienda_a"
-            android:title="@string/opcionTienda_a"
+            android:title="@string/opcionTienda"
             android:icon="@drawable/icono_tienda"
             />
 
         <item
             android:id="@+id/opcionReseñas_a"
-            android:title="@string/opcionReseñas_a"
+            android:title="@string/opcionReseñas"
             android:icon="@drawable/icono_resenas"
             />
     </group>
 
     <item
         android:id="@+id/opcionCerrarSesion_a"
-        android:title="@string/opcionCerrarSesion_a"
+        android:title="@string/opcionCerrarSesion"
         android:icon="@drawable/icono_salir"
     />
 </menu>

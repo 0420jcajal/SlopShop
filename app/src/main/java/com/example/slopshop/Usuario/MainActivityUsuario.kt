@@ -1,12 +1,13 @@
-package com.example.slopshop
+package com.example.slopshop.Usuario
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.slopshop.R
 
-class MainActivity : AppCompatActivity() {
+class MainActivityUsuario : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()

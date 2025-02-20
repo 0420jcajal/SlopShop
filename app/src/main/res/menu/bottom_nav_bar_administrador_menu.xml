@@ -3,7 +3,7 @@
 
     <item
         android:id="@+id/opcionProductos_a"
-        android:title="@string/opcionProductos_a"
+        android:title="@string/opcionProductos"
         android:icon="@drawable/icono_productos"
         />
 
@@ -15,7 +15,7 @@
 
     <item
         android:id="@+id/opcionPedidos_a"
-        android:title="@string/opcionPedidos_a"
+        android:title="@string/opcionPedidos"
         android:icon="@drawable/icono_pedidos"
         />
 

@@ -4,27 +4,35 @@
     <string name="abrir_drawer">Abrir drawer</string>
     <string name="cerrar_drawer">Cerrar drawer</string>
 
-    <string name="opcionInicio_a">Inicio</string>
-    <string name="opcionTienda_a">Mi tienda</string>
-    <string name="opcionReseñas_a">Reseñas</string>
-    <string name="opcionCerrarSesion_a">Cerrar sesión</string>
-
-    <string name="opcionProductos_a">Mis Productos</string>
-    <string name="opcionPedidos_a">Pedidos</string>
-    <string name="textoInicio">Bienvenid@ a SlopShop</string>
-
     <!--PARTE DEL ADMINISTRADOR-->
+    <!--REGISTRO-->
     <string name="txtRegistroA">Registro administrador</string>
     <string name="NombreA">Nombre y Apellidos</string>
     <string name="EmailA">Email</string>
     <string name="ContrasenaA">Contraseña</string>
     <string name="ConfirmarContrasenaA">Confirmar Contraseña</string>
     <string name="RegistrarA">Registrarse</string>
-
     <string name="txtLoginA">Login de administrador</string>
     <string name="btnLoginA">Ingresar</string>
     <string name="noCuenta">¿Aun no estas registrado?</string>
     <string name="txtRegistrarA">Registrame</string>
+    <!--NAVIGATION DRAWER-->
+    <string name="opcionInicio">Inicio</string>
+    <string name="opcionTienda">Mi tienda</string>
+    <string name="opcionReseñas">Reseñas</string>
+    <string name="opcionCerrarSesion">Cerrar sesión</string>
+    <string name="opcionPerfil">Perfil</string>
+    <string name="opcionProductos">Mis Productos</string>
+    <string name="opcionPedidos">Pedidos</string>
+    <string name="opcionMisPedidos">Mis Pedidos</string>
+    <string name="opcionCatalogo">Catálogo</string>
+    <string name="textoInicio">Bienvenid@ a SlopShop</string>
+    <!--PARTE DEL CLIENTE-->
+    <!--REGISTRO-->
+
+
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/opcionCatalogo_u"
+        android:title="@string/opcionCatalogo"
+        android:icon="@drawable/icono_catalogo"/>
+
+    <item
+        android:id="@+id/opcionMisPedidos_u"
+        android:title="@string/opcionMisPedidos"
+        android:icon="@drawable/icono_pedidos"/>
+</menu>

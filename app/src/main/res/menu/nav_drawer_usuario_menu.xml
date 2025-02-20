@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    tools:showIn="navigation_view">
+
+    <group
+        android:id="@+id/grupoOpciones"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/opcionInicio_u"
+            android:title="@string/opcionInicio"
+            android:icon="@drawable/icono_inicio"
+            />
+
+        <item
+            android:id="@+id/opcionPerfil_u"
+            android:icon="@drawable/ico_nombre"
+            android:title="@string/opcionPerfil"/>
+
+    </group>
+
+    <item
+        android:id="@+id/opcionCerrarSesion_u"
+        android:title="@string/opcionCerrarSesion"
+        android:icon="@drawable/icono_salir"/>
+
+</menu>
