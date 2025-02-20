@@ -12,8 +12,8 @@ import androidx.fragment.app.Fragment
 import com.example.slopshop.Administrador.Bottom_Nav_Fragments_Administrador.FragmentPedidosA
 import com.example.slopshop.Administrador.Bottom_Nav_Fragments_Administrador.FragmentProductosA
 import com.example.slopshop.Administrador.Nav_Fragments_Administardor.FragmentInicioA
-import com.example.slopshop.Administrador.Nav_Fragments_Administardor.FragmentResenas
-import com.example.slopshop.Administrador.Nav_Fragments_Administardor.FragmentTiendaA
+import com.example.slopshop.Administrador.Nav_Fragments_Administardor.FragmentResenasA
+import com.example.slopshop.Administrador.Nav_Fragments_Administardor.FragmentCatalogoA
 import com.example.slopshop.R
 import com.example.slopshop.databinding.ActivityMainAdministradorBinding
 import com.google.android.material.navigation.NavigationView
@@ -79,10 +79,10 @@ class MainActivityAdministrador : AppCompatActivity() , NavigationView.OnNavigat
                 cambiarFragmento(FragmentInicioA())
             }
             R.id.opcionTienda_a->{
-                cambiarFragmento(FragmentTiendaA())
+                cambiarFragmento(FragmentCatalogoA())
             }
             R.id.opcionReseñas_a->{
-                cambiarFragmento(FragmentResenas())
+                cambiarFragmento(FragmentResenasA())
             }
             R.id.opcionCerrarSesion_a->{
                 cerrarSession()
