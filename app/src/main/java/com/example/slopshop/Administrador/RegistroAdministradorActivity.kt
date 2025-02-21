@@ -96,7 +96,7 @@ class RegistroAdministradorActivity : AppCompatActivity() {
         datosVendedor["uid"]= "$uidBD"
         datosVendedor["nombre"]= "$nombreBD"
         datosVendedor["email"]= "$emailBD"
-        datosVendedor["tipoUsuario"]= true
+        datosVendedor["tipoUsuario"]= "administrador"
         datosVendedor["tiempoRegisto"] = tiempoBD
 
         val references= FirebaseDatabase.getInstance().getReference("Usuarios")
