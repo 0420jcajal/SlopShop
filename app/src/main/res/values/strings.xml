@@ -7,7 +7,7 @@
     <string name="tipoUsuario">Usuarios</string>
     <string name="tipoAdmin">Administrador</string>
 
-    <!--PARTE DEL ADMINISTRADOR-->
+
     <!--REGISTRO-->
     <string name="txtRegistroA">Registrar Administrador</string>
     <string name="txtRegistroU">Registrar Usuario</string>
@@ -20,7 +20,7 @@
     <string name="btnLogin">Ingresar</string>
     <string name="noCuenta">¿Aun no estas registrado?</string>
     <string name="txtRegistrar">Registrame</string>
-    <!--NAVIGATION DRAWER-->
+    <!--OPCIONES DRAWER-->
     <string name="opcionInicio">Inicio</string>
     <string name="opcionTienda">Mi tienda</string>
     <string name="opcionReseñas">Reseñas</string>
@@ -31,8 +31,16 @@
     <string name="opcionMisPedidos">Mis Pedidos</string>
     <string name="opcionCatalogo">Catálogo</string>
     <string name="textoInicio">Bienvenid@ a SlopShop</string>
-    <!--PARTE DEL CLIENTE-->
-    <!--REGISTRO-->
+    <!--PRODUCTOS-->
+    <string name="txtAgregarProductos">Agregar Productos</string>
+    <string name="NombreP">Nombre del producto</string>
+    <string name="Descripcion">Descripción</string>
+    <string name="Categoria">Categoría</string>
+    <string name="Precio">Precio</string>
+    <string name="Descuento">Descuento</string>
+    <string name="PrecioConDescuento">Precio con descuento aplicado</string>
+    <string name="ejemploDescuento">Ejm: 10% Desc.</string>
+    <string name="btnAgregarProducto">Agregar Producto</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->

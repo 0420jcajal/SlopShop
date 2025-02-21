@@ -1,6 +1,7 @@
 package com.example.slopshop.Administrador.Nav_Fragments_Administardor
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.example.slopshop.Administrador.Bottom_Nav_Fragments_Administrador.FragmentPedidosA
 import com.example.slopshop.Administrador.Bottom_Nav_Fragments_Administrador.FragmentProductosA
+import com.example.slopshop.Administrador.Productos.AgregarProductoActivity
 import com.example.slopshop.R
 import com.example.slopshop.databinding.FragmentInicioABinding
 
@@ -45,6 +47,7 @@ class FragmentInicioA : Fragment() {
                 "Accediendo a la creación de producto",
                 Toast.LENGTH_SHORT
             ).show()
+            startActivity(Intent(context, AgregarProductoActivity::class.java))
         }
 
         return binding.root
