@@ -6,16 +6,17 @@
 
     <!--PARTE DEL ADMINISTRADOR-->
     <!--REGISTRO-->
-    <string name="txtRegistroA">Registro administrador</string>
-    <string name="NombreA">Nombre y Apellidos</string>
-    <string name="EmailA">Email</string>
-    <string name="ContrasenaA">Contraseña</string>
-    <string name="ConfirmarContrasenaA">Confirmar Contraseña</string>
-    <string name="RegistrarA">Registrarse</string>
-    <string name="txtLoginA">Login de administrador</string>
-    <string name="btnLoginA">Ingresar</string>
+    <string name="txtRegistroA">Registrar Administrador</string>
+    <string name="txtRegistroU">Registrar Usuario</string>
+    <string name="Nombre">Nombre y Apellidos</string>
+    <string name="Email">Email</string>
+    <string name="Contrasena">Contraseña</string>
+    <string name="ConfirmarContrasena">Confirmar Contraseña</string>
+    <string name="Registrar">Registrarse</string>
+    <string name="txtLogin">Iniciar Sesión</string>
+    <string name="btnLogin">Ingresar</string>
     <string name="noCuenta">¿Aun no estas registrado?</string>
-    <string name="txtRegistrarA">Registrame</string>
+    <string name="txtRegistrar">Registrame</string>
     <!--NAVIGATION DRAWER-->
     <string name="opcionInicio">Inicio</string>
     <string name="opcionTienda">Mi tienda</string>

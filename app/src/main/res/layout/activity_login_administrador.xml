@@ -14,11 +14,12 @@
         android:padding="15dp">
 
         <TextView
-            android:text="@string/txtLoginA"
+            android:text="@string/txtLogin"
             android:layout_gravity="center"
-            android:textSize="30sp"
+            android:textSize="40sp"
             android:textStyle="bold"
             android:paddingTop="20dp"
+            android:fontFamily="@font/handwrite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <androidx.appcompat.widget.AppCompatImageView
@@ -34,7 +35,7 @@
             android:layout_height="wrap_content">
             <EditText
                 android:id="@+id/etEmailA"
-                android:hint="@string/EmailA"
+                android:hint="@string/Email"
                 android:drawableStart="@drawable/ico_email"
                 android:drawablePadding="10dp"
                 android:inputType="textEmailAddress"
@@ -48,7 +49,7 @@
             app:passwordToggleEnabled="true">
             <EditText
                 android:id="@+id/etContrasenaA"
-                android:hint="@string/ContrasenaA"
+                android:hint="@string/Contrasena"
                 android:inputType="textPassword"
                 android:drawableStart="@drawable/ico_contrasena"
                 android:drawablePadding="10dp"
@@ -58,7 +59,7 @@
         
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnLoginA"
-            android:text="@string/btnLoginA"
+            android:text="@string/btnLogin"
             android:textAllCaps="true"
             android:layout_marginTop="15dp"
             android:layout_gravity="center"
@@ -74,7 +75,7 @@
             android:layout_height="wrap_content"/>
         <TextView
             android:id="@+id/txtRegistrarA"
-            android:text="@string/txtRegistrarA"
+            android:text="@string/txtRegistrar"
             android:textStyle="bold"
             android:layout_gravity ="end"
             android:layout_marginTop="10dp"
