@@ -51,6 +51,7 @@ dependencies {
     implementation(libs.firebaseAuntentication) //Animaciones
     implementation(libs.lottie) //Autentificacion con Firebase
     implementation(libs.firebaseDatabase) //Base de datos de firebase
+    implementation(libs.imagePicker)//Recortar y ajustar imagenes
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
