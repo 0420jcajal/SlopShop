@@ -1,5 +1,6 @@
 package com.example.slopshop.Usuario
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
@@ -9,15 +10,18 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import com.example.slopshop.R
+import com.example.slopshop.SeleccionarTipoActivity
 import com.example.slopshop.Usuario.Bottom_Nav_Fragments_Usuario.FragmentCatalogoU
 import com.example.slopshop.Usuario.Bottom_Nav_Fragments_Usuario.FragmentPedidosU
 import com.example.slopshop.Usuario.Nav_Fragments_Usuario.FragmentInicioU
 import com.example.slopshop.Usuario.Nav_Fragments_Usuario.FragmentMiPerfilU
 import com.example.slopshop.databinding.ActivityMainUsuarioBinding
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
 
 class MainActivityUsuario : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var binding: ActivityMainUsuarioBinding
+    private var firebaseAuth: FirebaseAuth?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainUsuarioBinding.inflate(layoutInflater)
@@ -25,6 +29,10 @@ class MainActivityUsuario : AppCompatActivity(), NavigationView.OnNavigationItem
 
         val toolbar= findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
+
+        firebaseAuth= FirebaseAuth.getInstance()
+        comprobarSesion()
+
 
         binding.navigationView.setNavigationItemSelectedListener(this)
 
@@ -49,6 +57,19 @@ class MainActivityUsuario : AppCompatActivity(), NavigationView.OnNavigationItem
             .replace(R.id.navFragment,fragment)
             .commit()
     }
+    private fun cerrarSession(){
+        firebaseAuth!!.signOut()
+        startActivity(Intent(this@MainActivityUsuario, SeleccionarTipoActivity::class.java))
+        finish()
+        Toast.makeText(this, "Has cerrado sesión correctamente", Toast.LENGTH_SHORT).show()
+    }
+    private fun comprobarSesion() {
+        if(firebaseAuth!!.currentUser==null){
+            startActivity(Intent(this@MainActivityUsuario, SeleccionarTipoActivity::class.java))
+        }else{
+            Toast.makeText(this, "Bienvenido a SlopShop", Toast.LENGTH_SHORT).show()
+        }
+    }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
@@ -59,7 +80,7 @@ class MainActivityUsuario : AppCompatActivity(), NavigationView.OnNavigationItem
                 cambiarFragment(FragmentMiPerfilU())
             }
             R.id.opcionCerrarSesion_u->{
-                Toast.makeText(applicationContext, "Cerraste sesión correctamente", Toast.LENGTH_SHORT).show()
+                cerrarSession()
             }
             R.id.opcionCatalogo_u->{
                 cambiarFragment(FragmentCatalogoU())

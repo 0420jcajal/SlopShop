@@ -51,7 +51,7 @@ class PantallaSplashActivity : AppCompatActivity() {
                         if(tipoUsuario == "administrador"){
                             startActivity(Intent(this@PantallaSplashActivity, MainActivityAdministrador::class.java))
                             finishAffinity()
-                        }else if (tipoUsuario == "usuario"){
+                        }else if (tipoUsuario == "cliente"){
                             startActivity(Intent(this@PantallaSplashActivity, MainActivityUsuario::class.java))
                             finishAffinity()
                         }
