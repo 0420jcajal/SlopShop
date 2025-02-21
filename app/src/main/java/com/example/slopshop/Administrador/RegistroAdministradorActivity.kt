@@ -91,17 +91,17 @@ class RegistroAdministradorActivity : AppCompatActivity() {
         val emailBD = email
         val tiempoBD= Constantes().obtenerTiempo()
 
-        val datosVendedor = HashMap<String, Any>()
+        val datosAdmin = HashMap<String, Any>()
 
-        datosVendedor["uid"]= "$uidBD"
-        datosVendedor["nombre"]= "$nombreBD"
-        datosVendedor["email"]= "$emailBD"
-        datosVendedor["tipoUsuario"]= "administrador"
-        datosVendedor["tiempoRegisto"] = tiempoBD
+        datosAdmin["uid"]= "$uidBD"
+        datosAdmin["nombre"]= "$nombreBD"
+        datosAdmin["email"]= "$emailBD"
+        datosAdmin["tipoUsuario"]= "administrador"
+        datosAdmin["tiempoRegisto"] = tiempoBD
 
         val references= FirebaseDatabase.getInstance().getReference("Usuarios")
         references.child(uidBD!!)
-            .setValue(datosVendedor)
+            .setValue(datosAdmin)
             .addOnSuccessListener {
                 progressDialog.dismiss()
                 startActivity(Intent(this, MainActivityAdministrador::class.java))
