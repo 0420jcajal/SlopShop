@@ -15,6 +15,7 @@ import com.example.slopshop.Administrador.Nav_Fragments_Administardor.FragmentIn
 import com.example.slopshop.Administrador.Nav_Fragments_Administardor.FragmentResenasA
 import com.example.slopshop.Administrador.Nav_Fragments_Administardor.FragmentTIendaA
 import com.example.slopshop.R
+import com.example.slopshop.SeleccionarTipoActivity
 import com.example.slopshop.databinding.ActivityMainAdministradorBinding
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
@@ -53,13 +54,13 @@ class MainActivityAdministrador : AppCompatActivity() , NavigationView.OnNavigat
     }
     private fun cerrarSession(){
         firebaseAuth!!.signOut()
-        startActivity(Intent(applicationContext, LoginAdministradorActivity::class.java))
+        startActivity(Intent(applicationContext, SeleccionarTipoActivity::class.java))
         finish()
         Toast.makeText(applicationContext, "Has cerrado sesión correctamente", Toast.LENGTH_SHORT).show()
     }
     private fun comprobarSesion() {
         if(firebaseAuth!!.currentUser==null){
-            startActivity(Intent(applicationContext,LoginAdministradorActivity::class.java))
+            startActivity(Intent(applicationContext,SeleccionarTipoActivity::class.java))
         }else{
             Toast.makeText(applicationContext, "Bienvenido a SlopShop", Toast.LENGTH_SHORT).show()
         }

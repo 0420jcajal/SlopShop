@@ -27,7 +27,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="10dp"
-            android:src="@drawable/icono_usuario"
+            android:src="@drawable/icono_registro_usuario"
             android:layout_width="100dp"
             android:layout_height="100dp"/>
 

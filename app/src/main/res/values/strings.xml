@@ -4,6 +4,9 @@
     <string name="abrir_drawer">Abrir drawer</string>
     <string name="cerrar_drawer">Cerrar drawer</string>
 
+    <string name="tipoUsuario">Usuarios</string>
+    <string name="tipoAdmin">Administrador</string>
+
     <!--PARTE DEL ADMINISTRADOR-->
     <!--REGISTRO-->
     <string name="txtRegistroA">Registrar Administrador</string>
