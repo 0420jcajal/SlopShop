@@ -13,7 +13,7 @@ import com.example.slopshop.Administrador.Bottom_Nav_Fragments_Administrador.Fra
 import com.example.slopshop.Administrador.Bottom_Nav_Fragments_Administrador.FragmentProductosA
 import com.example.slopshop.Administrador.Nav_Fragments_Administardor.FragmentInicioA
 import com.example.slopshop.Administrador.Nav_Fragments_Administardor.FragmentResenasA
-import com.example.slopshop.Administrador.Nav_Fragments_Administardor.FragmentCatalogoA
+import com.example.slopshop.Administrador.Nav_Fragments_Administardor.FragmentTIendaA
 import com.example.slopshop.R
 import com.example.slopshop.databinding.ActivityMainAdministradorBinding
 import com.google.android.material.navigation.NavigationView
@@ -79,7 +79,7 @@ class MainActivityAdministrador : AppCompatActivity() , NavigationView.OnNavigat
                 cambiarFragmento(FragmentInicioA())
             }
             R.id.opcionTienda_a->{
-                cambiarFragmento(FragmentCatalogoA())
+                cambiarFragmento(FragmentTIendaA())
             }
             R.id.opcionReseñas_a->{
                 cambiarFragmento(FragmentResenasA())
