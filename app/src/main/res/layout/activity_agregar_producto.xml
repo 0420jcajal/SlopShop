@@ -7,12 +7,14 @@
     android:layout_height="match_parent"
     tools:context=".Administrador.Productos.AgregarProductoActivity">
 
+
     <RelativeLayout
         android:id="@+id/RLTitulo"
         android:layout_width="match_parent"
         android:layout_height="55dp">
 
         <TextView
+
             android:text="@string/txtAgregarProductos"
             android:layout_centerInParent="true"
             android:textStyle="bold"
@@ -50,7 +52,7 @@
         android:padding="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -62,19 +64,21 @@
                 app:spanCount="4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
-            
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/TILNombreP"
                 android:layout_below="@id/RVImagenesProducto"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="20px">
 
                 <EditText
                     android:id="@+id/etNombreProducto"
                     android:hint="@string/NombreP"
                     android:inputType="textCapSentences"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    />
 
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -83,7 +87,9 @@
                 android:id="@+id/TILDescripcionP"
                 android:layout_below="@+id/TILNombreP"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="20px"
+                >
 
                 <EditText
                     android:id="@+id/etDescripcionP"
@@ -99,7 +105,8 @@
                 android:id="@+id/TILPrecioP"
                 android:layout_below="@+id/TILDescripcionP"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="20px">
 
                 <EditText
                     android:id="@+id/etPrecioP"
@@ -117,13 +124,15 @@
                 android:layout_below="@id/TILPrecioP"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"/>
+                android:layout_margin="5dp"
+                />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/TILPrecioDescuentoP"
                 android:layout_below="@id/decuentoSwitch"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="20px">
 
                 <EditText
                     android:id="@+id/etPrecioConDescuentoP"
@@ -139,7 +148,8 @@
                 android:id="@+id/TILNotaAyudaDesc"
                 android:layout_below="@id/TILPrecioDescuentoP"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="20px">
 
                 <EditText
                     android:id="@+id/ejemploDescuento"
@@ -155,7 +165,7 @@
 
 
     </androidx.core.widget.NestedScrollView>
-    
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnAgregarProducto"
         android:text="@string/btnAgregarProducto"

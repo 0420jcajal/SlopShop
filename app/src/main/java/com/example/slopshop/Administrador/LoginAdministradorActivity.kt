@@ -67,7 +67,7 @@ class LoginAdministradorActivity : AppCompatActivity() {
                 Toast.makeText(this, "Bienvenid@ de nuevo", Toast.LENGTH_SHORT).show()
             }
             .addOnFailureListener {e->
-                Toast.makeText(this, "No se pudo iniciar sesion debido a ${e.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "No se pudo iniciar sesión debido a ${e.message}", Toast.LENGTH_SHORT).show()
 
             }
     }
