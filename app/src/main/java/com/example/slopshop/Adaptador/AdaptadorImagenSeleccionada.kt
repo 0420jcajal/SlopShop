@@ -39,7 +39,7 @@ class AdaptadorImagenSeleccionada (
                 .placeholder(R.drawable.icono_imagen)
                 .into(holder.itemImagen)
         }catch (e:Exception){
-
+                //TODO
         }
 
         //Borrar foto

@@ -20,6 +20,12 @@
             />
 
         <item
+            android:id="@+id/opcionCategorias_a"
+            android:title="@string/opcionCategorias"
+            android:icon="@drawable/icono_categorias"
+            />
+
+        <item
             android:id="@+id/opcionReseñas_a"
             android:title="@string/opcionReseñas"
             android:icon="@drawable/icono_resenas"

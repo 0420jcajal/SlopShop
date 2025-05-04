@@ -31,6 +31,7 @@
     <string name="opcionMisPedidos">Mis Pedidos</string>
     <string name="opcionCatalogo">Catálogo</string>
     <string name="textoInicio">Bienvenid@ a SlopShop</string>
+    <string name="opcionCategorias">Categorías</string>
     <!--PRODUCTOS-->
     <string name="txtAgregarProductos">Agregar Productos</string>
     <string name="NombreP">Nombre del producto</string>
@@ -41,6 +42,10 @@
     <string name="PrecioConDescuento">Precio con descuento aplicado</string>
     <string name="ejemploDescuento">Ejm: 10% Desc.</string>
     <string name="btnAgregarProducto">Agregar Producto</string>
+
+    <!--CATEGORIAS-->
+    <string name="pedirCategoria">Introduzca la categoría</string>
+    <string name="btnAgregarCategoria">Agregar la categoría</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->

@@ -11,6 +11,7 @@ import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import com.example.slopshop.Administrador.Bottom_Nav_Fragments_Administrador.FragmentPedidosA
 import com.example.slopshop.Administrador.Bottom_Nav_Fragments_Administrador.FragmentProductosA
+import com.example.slopshop.Administrador.Nav_Fragments_Administardor.FragmentCategoriasA
 import com.example.slopshop.Administrador.Nav_Fragments_Administardor.FragmentInicioA
 import com.example.slopshop.Administrador.Nav_Fragments_Administardor.FragmentResenasA
 import com.example.slopshop.Administrador.Nav_Fragments_Administardor.FragmentTIendaA
@@ -81,6 +82,9 @@ class MainActivityAdministrador : AppCompatActivity() , NavigationView.OnNavigat
             }
             R.id.opcionTienda_a->{
                 cambiarFragmento(FragmentTIendaA())
+            }
+            R.id.opcionCategorias_a->{
+                cambiarFragmento(FragmentCategoriasA())
             }
             R.id.opcionReseñas_a->{
                 cambiarFragmento(FragmentResenasA())
