@@ -73,6 +73,7 @@ class LoginUsuarioActivity : AppCompatActivity() {
                 Toast.makeText(this, "Bienvenid@ de nuevo", Toast.LENGTH_SHORT).show()
             }
             .addOnFailureListener {e->
+                progressDialog.dismiss()
                 Toast.makeText(this, "No se pudo iniciar sesion debido a ${e.message}", Toast.LENGTH_SHORT).show()
 
             }
