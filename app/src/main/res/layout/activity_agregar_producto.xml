@@ -70,7 +70,7 @@
                 android:layout_below="@id/RVImagenesProducto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="20px">
+                android:layout_margin="5dp">
 
                 <EditText
                     android:id="@+id/etNombreProducto"
@@ -83,20 +83,34 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/TILDescripcionP"
+            <TextView
+                android:id="@+id/categoria"
                 android:layout_below="@+id/TILNombreP"
+                android:text="@string/Categoria"
+                android:padding="15dp"
+                android:textSize="17sp"
+                android:gravity="center_vertical"
+                android:background="@drawable/custom_edittext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="20px"
-                >
+                android:layout_margin="5dp"
+                app:drawableEndCompat="@drawable/icono_desplegar"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/TILDescripcionP"
+                android:layout_below="@+id/categoria"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp">
 
                 <EditText
                     android:id="@+id/etDescripcionP"
                     android:hint="@string/Descripcion"
                     android:inputType="textCapSentences"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+
+                    />
 
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -106,7 +120,7 @@
                 android:layout_below="@+id/TILDescripcionP"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="20px">
+                android:layout_margin="5dp">
 
                 <EditText
                     android:id="@+id/etPrecioP"
@@ -132,7 +146,7 @@
                 android:layout_below="@id/decuentoSwitch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="20px">
+                android:layout_margin="5dp">
 
                 <EditText
                     android:id="@+id/etPrecioConDescuentoP"
@@ -149,7 +163,7 @@
                 android:layout_below="@id/TILPrecioDescuentoP"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="20px">
+                android:layout_margin="5dp">
 
                 <EditText
                     android:id="@+id/ejemploDescuento"
