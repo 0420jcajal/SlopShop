@@ -1,15 +1,19 @@
 package com.example.slopshop.Administrador.Nav_Fragments_Administardor
 
+import android.app.Activity
 import android.app.ProgressDialog
 import android.content.Context
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import com.example.slopshop.R
 import com.example.slopshop.databinding.FragmentCategoriasABinding
+import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.firebase.database.FirebaseDatabase
 
 class FragmentCategoriasA : Fragment() {
@@ -17,6 +21,7 @@ class FragmentCategoriasA : Fragment() {
     private lateinit var binding: FragmentCategoriasABinding
     private lateinit var mContext: Context
     private lateinit var progressDialog: ProgressDialog
+    private var imageUri : Uri?=null
 
     override fun onAttach(context: Context) {
         mContext=context
@@ -32,11 +37,31 @@ class FragmentCategoriasA : Fragment() {
         progressDialog.setTitle("Agregando Categoria, Espere por favor.")
         progressDialog.setCanceledOnTouchOutside(false)
 
+        binding.imgAgregarCategoria.setOnClickListener(){
+            ImagePicker.with(requireActivity())
+                .crop()
+                .compress(1024)
+                .maxResultSize(1080,1080)
+                .createIntent { intent ->
+                    resultadoImg.launch(intent)
+                }
+        }
+
         binding.btnAgregarCategoria.setOnClickListener{
             validarCategoria()
         }
         return binding.root
     }
+    private val resultadoImg=
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()){resultado->
+            if(resultado.resultCode== Activity.RESULT_OK){
+                val data = resultado.data
+                imageUri= data!!.data
+                binding.imgAgregarCategoria.setImageURI(imageUri)
+            } else {
+                Toast.makeText(mContext, "No se ha podido agregar la imagen de categoría", Toast.LENGTH_SHORT).show()
+            }
+        }
 
     private var categoria= ""
     private fun validarCategoria() {

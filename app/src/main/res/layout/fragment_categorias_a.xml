@@ -13,6 +13,15 @@
         android:layout_marginTop="25dp"
         android:orientation="vertical">
 
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgAgregarCategoria"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/ic_categorias"
+            android:layout_gravity="center"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="20dp"/>
+
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
