@@ -1,5 +1,6 @@
 package com.example.slopshop.Administrador.Nav_Fragments_Administardor
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.ProgressDialog
 import android.content.Context
@@ -11,10 +12,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.slopshop.Adaptador.AdaptadorCategoria
+import com.example.slopshop.Entidades.Categoria
 import com.example.slopshop.R
 import com.example.slopshop.databinding.FragmentCategoriasABinding
 import com.github.dhaval2404.imagepicker.ImagePicker
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
 
 class FragmentCategoriasA : Fragment() {
@@ -23,6 +30,11 @@ class FragmentCategoriasA : Fragment() {
     private lateinit var mContext: Context
     private lateinit var progressDialog: ProgressDialog
     private var imageUri : Uri?=null
+
+    private var listaCategorias = ArrayList<Categoria>()
+    private lateinit var adaptadorCategoria: AdaptadorCategoria
+
+    private val setIds = HashSet<String>()
 
     override fun onAttach(context: Context) {
         mContext=context
@@ -37,6 +49,13 @@ class FragmentCategoriasA : Fragment() {
         progressDialog=ProgressDialog(context)
         progressDialog.setTitle("Agregando Categoria, Espere por favor.")
         progressDialog.setCanceledOnTouchOutside(false)
+
+        listaCategorias = ArrayList()
+        adaptadorCategoria = AdaptadorCategoria(requireContext(), listaCategorias)
+        binding.listaCategorias.layoutManager = LinearLayoutManager(requireContext())
+        binding.listaCategorias.adapter = adaptadorCategoria
+
+        cargarCategoriasFireBase()
 
         binding.imgAgregarCategoria.setOnClickListener(){
             ImagePicker.with(requireActivity())
@@ -53,6 +72,33 @@ class FragmentCategoriasA : Fragment() {
         }
         return binding.root
     }
+
+    private fun cargarCategoriasFireBase() {
+        val ref = FirebaseDatabase.getInstance().getReference("Categorías")
+
+        ref.addValueEventListener(object : ValueEventListener{
+            @SuppressLint("NotifyDataSetChanged")
+            override fun onDataChange(snapshot: DataSnapshot){
+                for(categoriaSnap in snapshot.children) {
+                    val categoria = categoriaSnap.getValue(Categoria::class.java)
+                    if (categoria != null && !setIds.contains(categoria.id)) {
+                        listaCategorias.add(categoria)
+                        setIds.add(categoria.id)
+                    }
+                }
+                adaptadorCategoria.notifyDataSetChanged()
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(requireContext(), "Fallo al cargar el nombre de las categorias. Error:", Toast.LENGTH_SHORT).show()
+            }
+
+
+
+        })
+    }
+
+
     private val resultadoImg=
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()){resultado->
             if(resultado.resultCode== Activity.RESULT_OK){
