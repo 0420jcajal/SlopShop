@@ -15,6 +15,7 @@ import com.example.slopshop.R
 import com.example.slopshop.databinding.FragmentCategoriasABinding
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.storage.FirebaseStorage
 
 class FragmentCategoriasA : Fragment() {
 
@@ -68,6 +69,8 @@ class FragmentCategoriasA : Fragment() {
         categoria = binding.etCategoria.text.toString().trim()
         if(categoria.isEmpty()){
             Toast.makeText(context, "La categoría introducida se encuentra en blanco", Toast.LENGTH_SHORT).show()
+        }else if(imageUri==null){
+            Toast.makeText(context, "Por favor, tiene que seleccionar una imagen para la categoría", Toast.LENGTH_SHORT).show()
         }else{
             agregarCategoriaBD()
         }
@@ -88,14 +91,55 @@ class FragmentCategoriasA : Fragment() {
         ref.child(keyId!!)
             .setValue(hashMap)
             .addOnSuccessListener {
+                
+                subirImagenBD(keyId)
+                /*
                 progressDialog.dismiss()
                 Toast.makeText(context, "La categoría se ha agregado correctamente", Toast.LENGTH_SHORT).show()
                 binding.etCategoria.setText("")
+                 */
             }
             .addOnFailureListener {e->
                 progressDialog.dismiss()
                 Toast.makeText(context, "Ha habido un fallo al agregar la categoria en la Base de Datos. Error: ${e.message}", Toast.LENGTH_SHORT).show()
+                //TODO LOG
             }
 
     }
+
+    private fun subirImagenBD(keyId: String){
+
+        progressDialog.setMessage("Subiendo imagen...")
+        progressDialog.show()
+
+        val nombreImagen= keyId
+        val nombreCarpeta= "Categorías/$nombreImagen"
+        val storageReference = FirebaseStorage.getInstance().getReference(nombreCarpeta)
+        storageReference.putFile(imageUri!!)
+            .addOnSuccessListener { taskSnapshot->
+                progressDialog.dismiss()
+                val uriTask = taskSnapshot.storage.downloadUrl
+                while(!uriTask.isSuccessful);
+                val urlImgCargada = uriTask.result
+                if(uriTask.isSuccessful){
+                    val hashMap = HashMap<String, Any>()
+                    hashMap["imagenUrl"]="$urlImgCargada"
+                    val ref = FirebaseDatabase.getInstance().getReference("Categorías")
+                    ref.child(nombreImagen).updateChildren(hashMap)
+                    Toast.makeText(mContext, "La imagen se ha subido correctamente", Toast.LENGTH_SHORT).show()
+                    binding.etCategoria.setText("")
+                    imageUri= null
+                    binding.imgAgregarCategoria.setImageURI(imageUri)
+                    binding.imgAgregarCategoria.setImageResource(R.drawable.ic_categorias)
+                }
+            }
+            .addOnFailureListener{e ->
+                progressDialog.dismiss()
+                Toast.makeText(context, " ${e.message}", Toast.LENGTH_SHORT).show()
+                //TODO LOG
+            }
+
+    }
+
+
 }

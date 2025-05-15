@@ -11,6 +11,7 @@ android {
     defaultConfig {
         applicationId = "com.example.slopshop"
         minSdk = 23
+        //noinspection OldTargetApi
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -53,6 +54,7 @@ dependencies {
     implementation(libs.firebaseDatabase) //Base de datos de firebase
     implementation(libs.imagePicker)//Recortar y ajustar imagenes
     implementation(libs.glide)//Leer imagenes nube
+    implementation(libs.firebaseStorage)//BD para imagenes
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
