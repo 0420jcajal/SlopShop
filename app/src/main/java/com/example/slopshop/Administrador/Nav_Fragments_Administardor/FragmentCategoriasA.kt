@@ -51,7 +51,9 @@ class FragmentCategoriasA : Fragment() {
         progressDialog.setCanceledOnTouchOutside(false)
 
         listaCategorias = ArrayList()
-        adaptadorCategoria = AdaptadorCategoria(requireContext(), listaCategorias)
+        adaptadorCategoria = AdaptadorCategoria(requireContext(), listaCategorias){categoria ->
+            eliminarCategoria(categoria)
+        }
         binding.listaCategorias.layoutManager = LinearLayoutManager(requireContext())
         binding.listaCategorias.adapter = adaptadorCategoria
 
@@ -73,6 +75,51 @@ class FragmentCategoriasA : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("NotifyDataSetChanged")
+    private fun eliminarCategoria(categoria: Categoria) {
+
+        val builder = android.app.AlertDialog.Builder(mContext)
+        builder.setTitle("Eliminar categoría")
+        builder.setMessage("¿Estás seguro de que quieres eliminar la categoria \"${categoria.categoria}\"?")
+
+        builder.setPositiveButton("Sí"){dialog,_ ->
+
+            val ref = FirebaseDatabase.getInstance().getReference("Categorías")
+            val storageRef = FirebaseStorage.getInstance().getReferenceFromUrl(categoria.imagenUrl)
+
+            progressDialog.setMessage("Eliminando categoría...")
+            progressDialog.show()
+
+            storageRef.delete()
+                .addOnSuccessListener {
+                    ref.child(categoria.id).removeValue()
+                        .addOnSuccessListener {
+                            progressDialog.dismiss()
+                            Toast.makeText(mContext, "La categoría \"${categoria.categoria}\" ha eliminada correctamente.", Toast.LENGTH_SHORT).show()
+                            listaCategorias.remove(categoria)
+                            adaptadorCategoria.notifyDataSetChanged()
+                            setIds.remove(categoria.id)
+
+                        }
+                        .addOnFailureListener {e ->
+                            progressDialog.dismiss()
+                            Toast.makeText(mContext, "BD: ${e.message}.", Toast.LENGTH_SHORT).show()
+                            //TODO
+                        }
+                }
+                .addOnFailureListener {e ->
+                    progressDialog.dismiss()
+                    Toast.makeText(mContext, "Storage: ${e.message}.", Toast.LENGTH_SHORT).show()
+                    //TODO
+                }
+        }
+        builder.setNegativeButton("Cancelar"){dialog, _ ->
+            dialog.dismiss()
+        }
+
+        builder.create().show()
+    }
+
     private fun cargarCategoriasFireBase() {
         val ref = FirebaseDatabase.getInstance().getReference("Categorías")
 
@@ -90,7 +137,8 @@ class FragmentCategoriasA : Fragment() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(requireContext(), "Fallo al cargar el nombre de las categorias. Error:", Toast.LENGTH_SHORT).show()
+                //TODO
+                Toast.makeText(requireContext(), "Fallo al cargar el nombre de las categorias. ", Toast.LENGTH_SHORT).show()
             }
 
 
@@ -106,6 +154,7 @@ class FragmentCategoriasA : Fragment() {
                 imageUri= data!!.data
                 binding.imgAgregarCategoria.setImageURI(imageUri)
             } else {
+                //TODO
                 Toast.makeText(mContext, "No se ha podido agregar la imagen de categoría", Toast.LENGTH_SHORT).show()
             }
         }
@@ -137,7 +186,7 @@ class FragmentCategoriasA : Fragment() {
         ref.child(keyId!!)
             .setValue(hashMap)
             .addOnSuccessListener {
-                
+
                 subirImagenBD(keyId)
                 /*
                 progressDialog.dismiss()

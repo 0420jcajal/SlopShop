@@ -9,7 +9,8 @@ import com.example.slopshop.databinding.ItemCategoriaABinding
 
 class AdaptadorCategoria(
     private val context: Context,
-    private var listaCategorias: ArrayList<Categoria>
+    private var listaCategorias: ArrayList<Categoria>,
+    private val onEliminarClick: (Categoria) -> Unit
 ) : RecyclerView.Adapter<AdaptadorCategoria.HolderCategoria>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HolderCategoria {
@@ -22,6 +23,10 @@ class AdaptadorCategoria(
     override fun onBindViewHolder(holder: HolderCategoria, position: Int) {
         val categoria = listaCategorias[position]
         holder.binding.nombreCategoriaA.text = categoria.categoria
+
+        holder.binding.eliminarCategoria.setOnClickListener{
+            onEliminarClick(categoria)
+        }
     }
 
     inner class HolderCategoria(val binding: ItemCategoriaABinding) : RecyclerView.ViewHolder(binding.root)
