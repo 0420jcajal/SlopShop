@@ -46,6 +46,7 @@
     <!--CATEGORIAS-->
     <string name="pedirCategoria">Introduzca la categoría</string>
     <string name="btnAgregarCategoria">Agregar la categoría</string>
+    <string name="nombreCategoria">Nombre de la categoría:</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->
