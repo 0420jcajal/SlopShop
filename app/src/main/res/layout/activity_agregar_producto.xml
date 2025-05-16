@@ -66,7 +66,7 @@
                 android:layout_height="wrap_content"/>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/TILNombreP"
+                android:id="@+id/TILNombreProducto"
                 android:layout_below="@id/RVImagenesProducto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -85,8 +85,8 @@
 
             <TextView
                 android:id="@+id/categoria"
-                android:layout_below="@+id/TILNombreP"
-                android:text="@string/Categoria"
+                android:layout_below="@+id/TILNombreProducto"
+                android:hint="@string/Categoria"
                 android:padding="15dp"
                 android:textSize="17sp"
                 android:gravity="center_vertical"
@@ -97,14 +97,14 @@
                 app:drawableEndCompat="@drawable/icono_desplegar"/>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/TILDescripcionP"
+                android:id="@+id/TILDescripcionProducto"
                 android:layout_below="@+id/categoria"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp">
 
                 <EditText
-                    android:id="@+id/etDescripcionP"
+                    android:id="@+id/etDescripcionProducto"
                     android:hint="@string/Descripcion"
                     android:inputType="textCapSentences"
                     android:layout_width="match_parent"
@@ -117,13 +117,13 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/TILPrecioP"
-                android:layout_below="@+id/TILDescripcionP"
+                android:layout_below="@+id/TILDescripcionProducto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp">
 
                 <EditText
-                    android:id="@+id/etPrecioP"
+                    android:id="@+id/etPrecioProducto"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/Precio"
@@ -142,14 +142,14 @@
                 />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/TILPrecioDescuentoP"
+                android:id="@+id/TILPrecioDescuentoProducto"
                 android:layout_below="@id/decuentoSwitch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp">
 
                 <EditText
-                    android:id="@+id/etPrecioConDescuentoP"
+                    android:id="@+id/etPrecioConDescuentoProducto"
                     android:hint="@string/PrecioConDescuento"
                     android:inputType="numberDecimal"
                     android:layout_width="match_parent"
@@ -160,7 +160,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/TILNotaAyudaDesc"
-                android:layout_below="@id/TILPrecioDescuentoP"
+                android:layout_below="@id/TILPrecioDescuentoProducto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp">
