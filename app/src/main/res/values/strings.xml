@@ -48,6 +48,11 @@
     <string name="btnAgregarCategoria">Agregar la categoría</string>
     <string name="nombreCategoria">Nombre de la categoría:</string>
 
+    <!--PRODUCTOS-->
+    <string name="nombreProducto">Nombre del producto</string>
+    <string name="precioProducto">00</string>
+    <string name="descuentoProducto">00</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
