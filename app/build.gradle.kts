@@ -55,6 +55,8 @@ dependencies {
     implementation(libs.imagePicker)//Recortar y ajustar imagenes
     implementation(libs.glide)//Leer imagenes nube
     implementation(libs.firebaseStorage)//BD para imagenes
+    implementation(libs.autenteticationGoogle)//Autentificación Google
+
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

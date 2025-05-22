@@ -16,6 +16,7 @@ firebaseDatabaseV= "20.3.1"
 imagePickerV="2.1"
 glideV="4.16.0"
 firebaseStorageV="21.0.1"
+autentiticatonGoogleV="21.0.0"
 
 
 [libraries]
@@ -33,6 +34,7 @@ firebaseDatabase={group="com.google.firebase", name="firebase-database", version
 imagePicker={group="com.github.dhaval2404", name="imagepicker", version.ref="imagePickerV"}
 glide={group="com.github.bumptech.glide", name="glide", version.ref="glideV"}
 firebaseStorage={group="com.google.firebase", name="firebase-storage", version.ref="firebaseStorageV"}
+autenteticationGoogle={group="com.google.android.gms", name="play-services-auth", version.ref="autentiticatonGoogleV"}
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

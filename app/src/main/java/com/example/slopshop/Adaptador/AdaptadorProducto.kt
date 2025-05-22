@@ -62,7 +62,7 @@ class AdaptadorProducto : RecyclerView.Adapter<AdaptadorProducto.HolderProducto>
         ref.addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 for(producto in snapshot.children){
-                    val ejemploDescuento="${producto.child("ejemploProducto").value}"
+                    val ejemploDescuento="${producto.child("ejemploDescuento").value}"
                     val precioDescuento="${producto.child("precioDescuento").value}"
 
                     if(precioDescuento.isNotEmpty() && ejemploDescuento.isNotEmpty()){

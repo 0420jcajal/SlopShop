@@ -6,6 +6,8 @@
 
     <string name="tipoUsuario">Usuarios</string>
     <string name="tipoAdmin">Administrador</string>
+    
+    <string name="default_web_client_id">956404146006-v7tri44isgvn7abhnm7e9eo0hcsbi7oa.apps.googleusercontent.com</string>
 
 
     <!--REGISTRO-->
