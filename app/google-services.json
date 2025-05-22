@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "956404146006",
+    "firebase_url": "https://slopshop-b2836-default-rtdb.firebaseio.com",
     "project_id": "slopshop-b2836",
     "storage_bucket": "slopshop-b2836.firebasestorage.app"
   },
@@ -12,7 +13,20 @@
           "package_name": "com.example.slopshop"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "956404146006-coa311ulvpl3g1s2b9naurfgu0t01kso.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.slopshop",
+            "certificate_hash": "62200141f78be8c6b4decbb9d71db796fae4b9db"
+          }
+        },
+        {
+          "client_id": "956404146006-v7tri44isgvn7abhnm7e9eo0hcsbi7oa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyBAGg5s5g5mJ4kpNsogaOex9YJorqawuHo"
@@ -20,7 +34,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "956404146006-v7tri44isgvn7abhnm7e9eo0hcsbi7oa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

@@ -47,7 +47,43 @@ class AdaptadorProducto : RecyclerView.Adapter<AdaptadorProducto.HolderProducto>
 
         holder.nombreProducto.text="${nombre}"
         holder.precioProducto.text="${precio}${" EUR"}"
+        holder.precioDescuento.text="${precioDescuento}"
+        holder.ejemploDescuento.text="${ejemploDescuento}"
 
+        if(precioDescuento.isNotEmpty() && ejemploDescuento.isNotEmpty()){
+            mostrarDescuento(holder)
+        }
+
+    }
+
+    private fun mostrarDescuento(holder: AdaptadorProducto.HolderProducto) {
+
+        val ref = FirebaseDatabase.getInstance().getReference("Productos")
+        ref.addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for(producto in snapshot.children){
+                    val ejemploDescuento="${producto.child("ejemploProducto").value}"
+                    val precioDescuento="${producto.child("precioDescuento").value}"
+
+                    if(precioDescuento.isNotEmpty() && ejemploDescuento.isNotEmpty()){
+                        holder.precioDescuento.text="${precioDescuento}${" EUR"}"
+                        holder.ejemploDescuento.text="${ejemploDescuento}"
+
+                        holder.ejemploDescuento.visibility=View.VISIBLE
+                        holder.precioDescuento.visibility=View.VISIBLE
+
+                    } else{
+                        //TODO LOG
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+
+            }
+
+        })
     }
 
     private fun cargarPrimeraImagen(modeloProducto: Producto, holder: AdaptadorProducto.HolderProducto) {
@@ -84,6 +120,7 @@ class AdaptadorProducto : RecyclerView.Adapter<AdaptadorProducto.HolderProducto>
         var nombreProducto = binding.nombreProducto
         var precioProducto = binding.precioProducto
         var precioDescuento = binding.precioDescuento
+        var ejemploDescuento = binding.ejemploDescuento
     }
 
 

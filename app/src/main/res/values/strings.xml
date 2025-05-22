@@ -50,6 +50,7 @@
 
     <!--PRODUCTOS-->
     <string name="nombreProducto">Nombre del producto</string>
+    <string name="ejemploProducto">40% Descuento</string>
     <string name="precioProducto">00</string>
     <string name="descuentoProducto">00</string>
 
