@@ -3,16 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Usuario.Bottom_Nav_Fragments_Usuario.FragmentCatalogoU">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/productosRV"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Catálogo"
-        android:gravity="center"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        android:fontFamily="@font/handwrite"/>
+        android:layout_height="wrap_content"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        tools:listitem="@layout/item_producto"
+        app:spanCount="2"/>
 
 </FrameLayout>

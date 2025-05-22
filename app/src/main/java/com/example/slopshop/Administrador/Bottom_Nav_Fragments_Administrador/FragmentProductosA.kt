@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.slopshop.Adaptador.AdaptadorProducto
 import com.example.slopshop.Entidades.Producto
 import com.example.slopshop.R
@@ -22,6 +23,9 @@ class FragmentProductosA : Fragment() {
     private lateinit var listaProductos : ArrayList<Producto>
     private lateinit var adaptadorProducto: AdaptadorProducto
 
+    private var currentPage = 0
+    private var tamañoPagina = 4
+
     override fun onAttach(context: Context) {
         mContext = context
         super.onAttach(context)
@@ -34,7 +38,46 @@ class FragmentProductosA : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.productosRV.layoutManager = GridLayoutManager(mContext, 2)
+        adaptadorProducto = AdaptadorProducto(mContext, ArrayList())
+        binding.productosRV.adapter = adaptadorProducto
+
+        binding.btnPrev.setOnClickListener{
+            if(currentPage>0){
+                currentPage--
+                actualizarPagina()
+            }
+        }
+        binding.btnNext.setOnClickListener{
+                currentPage++
+                actualizarPagina()
+        }
+
         listarProductos()
+    }
+
+    private fun actualizarPagina() {
+        val from = currentPage * tamañoPagina
+        val to = minOf(from + tamañoPagina, listaProductos.size)
+        val sublista = if (from<listaProductos.size)
+                listaProductos.subList(from, to)
+        else
+            emptyList()
+
+        val itemsPagina = ArrayList(sublista)
+        adaptadorProducto = AdaptadorProducto(mContext, itemsPagina)
+        binding.productosRV.adapter = adaptadorProducto
+
+        val totalPaginas = (listaProductos.size + tamañoPagina - 1)/tamañoPagina
+        binding.txtPage.text= getString(
+            R.string.paginaProducto,
+            currentPage + 1,
+            totalPaginas
+        )
+
+        binding.btnPrev.isEnabled = currentPage > 0
+        binding.btnNext.isEnabled = currentPage + 1 < totalPaginas
     }
 
     private fun listarProductos() {
@@ -50,10 +93,12 @@ class FragmentProductosA : Fragment() {
                 }
                 adaptadorProducto = AdaptadorProducto(mContext, listaProductos)
                 binding.productosRV.adapter = adaptadorProducto
+
             }
 
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
+                //TODO LOG
             }
 
         })

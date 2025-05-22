@@ -55,6 +55,10 @@
     <string name="ejemploProducto">40% Descuento</string>
     <string name="precioProducto">00</string>
     <string name="descuentoProducto">00</string>
+    <string name="anteriorProducto">Anterior</string>
+    <string name="siguienteProducto">Siguiente</string>
+    <string name="paginaProducto">Página %1$d de %2$d</string>
+
 
 
     <!-- TODO: Remove or change this placeholder text -->
