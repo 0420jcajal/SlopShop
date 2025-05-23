@@ -65,6 +65,8 @@
                 android:id="@+id/txtPrecio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:padding="5dp"
                 android:text="Precio: 125.75€"
                 android:layout_below="@id/txtDescripcion"
                 android:textStyle="bold"
@@ -75,16 +77,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/txtPrecio"
-            android:layout_marginTop="8dp"
-            android:padding="5dp">
+
+
+>
             <TextView
                 android:id="@+id/txtPrecioDescuento"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="8dp"
                 android:text="Precio Descuento: 99.99€"
                 android:textStyle="bold"
-                android:textSize="20sp"
+                android:textSize="22sp"
+                android:padding="5dp"
                 android:textColor="@android:color/holo_red_dark" />
 
             <com.google.android.material.button.MaterialButton
@@ -103,7 +107,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/txtPrecioDescuento"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="8dp"
                 android:text="20% Descuento"
                 android:textStyle="italic"
                 android:padding="5dp"
@@ -119,7 +123,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/rlPreciosYEditar"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="8dp"
             android:text="Puntuacion: ★★★★☆"
             android:textSize="16sp" />
 
