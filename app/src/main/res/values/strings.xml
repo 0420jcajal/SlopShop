@@ -6,7 +6,7 @@
 
     <string name="tipoUsuario">Usuarios</string>
     <string name="tipoAdmin">Administrador</string>
-    
+
     <string name="default_web_client_id">956404146006-v7tri44isgvn7abhnm7e9eo0hcsbi7oa.apps.googleusercontent.com</string>
 
 
@@ -58,7 +58,6 @@
     <string name="anteriorProducto">Anterior</string>
     <string name="siguienteProducto">Siguiente</string>
     <string name="paginaProducto">Página %1$d de %2$d</string>
-
 
 
     <!-- TODO: Remove or change this placeholder text -->

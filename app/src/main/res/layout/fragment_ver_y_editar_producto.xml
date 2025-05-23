@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/tituloProducto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cesta picnic de ratán"
+        android:textSize="50sp"
+        android:textStyle="bold"
+        android:padding="5dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/handwrite"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvImagenesProducto"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_below="@id/tituloProducto"
+        android:layout_marginTop="16dp"
+        android:padding="5dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:orientation="vertical"/>
+
+    <TextView
+        android:id="@+id/txtCategoria"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rvImagenesProducto"
+        android:layout_marginTop="10dp"
+        android:padding="5dp"
+        android:text="Categoría: Cestería"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/txtDescripcion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtCategoria"
+        android:layout_marginTop="8dp"
+        android:padding="5dp"
+        android:text="Gran cesta de picnic de ratán tejido de mimbre, con forro de tela escocesa y dos asas."
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/txtPrecio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtDescripcion"
+        android:layout_marginTop="8dp"
+        android:text="Precio: $125.75"
+        android:padding="5dp"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/txtPrecioDescuento"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtPrecio"
+        android:layout_marginTop="4dp"
+        android:text="Precio con Descuento: $99.99"
+        android:textSize="16sp"
+        android:padding="5dp"
+        android:textColor="@android:color/holo_red_dark" />
+
+    <TextView
+        android:id="@+id/txtEjemploDescuento"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtPrecioDescuento"
+        android:layout_marginTop="4dp"
+        android:text="20% Descuento"
+        android:textStyle="italic"
+        android:padding="5dp"
+        android:textSize="14sp" />
+
+    <!-- Placeholder para el Rating -->
+    <TextView
+        android:id="@+id/txtRating"
+        android:padding="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtEjemploDescuento"
+        android:layout_marginTop="10dp"
+        android:text="Rating: ★★★★☆"
+        android:textSize="16sp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnAccionProducto"
+        android:padding="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Comentarios"
+        android:layout_below="@id/txtRating"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp" />
+
+</RelativeLayout>

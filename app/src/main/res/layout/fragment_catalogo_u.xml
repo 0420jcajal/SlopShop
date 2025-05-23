@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,11 +7,53 @@
     tools:context=".Usuario.Bottom_Nav_Fragments_Usuario.FragmentCatalogoU">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/productosRV"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:id="@+id/catalogoProductosRV"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         tools:listitem="@layout/item_producto"
-        app:spanCount="2"/>
+        app:spanCount="2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/paginationBar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
-</FrameLayout>
+    <LinearLayout
+        android:id="@+id/paginationBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:minHeight="60dp"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        android:layout_marginBottom="150dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:paddingBottom="80dp">
+
+        <Button
+            android:id="@+id/btnPrev"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:text="@string/anteriorProducto"
+            tools:visibility="visible"/>
+
+        <TextView
+            android:id="@+id/txtPage"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/paginaProducto"
+            tools:text="Página 1 de 3" />
+
+        <Button
+            android:id="@+id/btnNext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/siguienteProducto"
+            tools:visibility="visible"/>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

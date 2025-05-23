@@ -1,6 +1,8 @@
 package com.example.slopshop.Entidades
 
-class Producto {
+import java.io.Serializable
+
+class Producto : Serializable{
 
     var id : String = ""
     var nombre : String = ""
@@ -9,6 +11,7 @@ class Producto {
     var precio : String = ""
     var precioDescuento : String = ""
     var ejemploDescuento : String = ""
+    var imagenes: ArrayList<String>? = null
 
     constructor()
     constructor(
@@ -18,7 +21,8 @@ class Producto {
         categoria: String,
         precio: String,
         precioDescuento: String,
-        ejemploDescuento: String
+        ejemploDescuento: String,
+        imagenes: ArrayList<String>? = null
     ) {
         this.id = id
         this.nombre = nombre
@@ -27,5 +31,6 @@ class Producto {
         this.precio = precio
         this.precioDescuento = precioDescuento
         this.ejemploDescuento = ejemploDescuento
+        this.imagenes = imagenes
     }
 }
