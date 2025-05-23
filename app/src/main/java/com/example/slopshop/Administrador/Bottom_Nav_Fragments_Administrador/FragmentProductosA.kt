@@ -56,7 +56,7 @@ class FragmentProductosA : Fragment() {
 
                         parentFragmentManager.beginTransaction()
                             .replace(
-                                R.id.bottomFragment,
+                                R.id.navFragment,
                                 FragmentVerYEditarProducto.newInstance(productoSeleccionado.id)
                             )
                             .addToBackStack(null)

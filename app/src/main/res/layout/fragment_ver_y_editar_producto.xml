@@ -59,27 +59,28 @@
             android:text="Descripcion del producto \nY\nDetalles"
             android:textSize="16sp" />
 
-        <RelativeLayout
-            android:id="@+id/rlPreciosYEditar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/txtDescripcion"
-            android:layout_marginTop="8dp"
-            android:padding="5dp">
+
 
             <TextView
                 android:id="@+id/txtPrecio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Precio: 125.75€"
+                android:layout_below="@id/txtDescripcion"
                 android:textStyle="bold"
                 android:textSize="16sp" />
 
+        <RelativeLayout
+            android:id="@+id/rlPreciosYEditar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txtPrecio"
+            android:layout_marginTop="8dp"
+            android:padding="5dp">
             <TextView
                 android:id="@+id/txtPrecioDescuento"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/txtPrecio"
                 android:layout_marginTop="4dp"
                 android:text="Precio Descuento: 99.99€"
                 android:textStyle="bold"
@@ -96,27 +97,30 @@
                 app:iconSize="32dp"
                 app:iconPadding="0dp"
                 app:iconGravity="textStart" />
+
+            <TextView
+                android:id="@+id/txtEjemploDescuento"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txtPrecioDescuento"
+                android:layout_marginTop="4dp"
+                android:text="20% Descuento"
+                android:textStyle="italic"
+                android:padding="5dp"
+                android:textSize="14sp" />
+
         </RelativeLayout>
 
-        <TextView
-            android:id="@+id/txtEjemploDescuento"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/rlPreciosYEditar"
-            android:layout_marginTop="4dp"
-            android:text="20% Descuento"
-            android:textStyle="italic"
-            android:padding="5dp"
-            android:textSize="14sp" />
+
 
         <TextView
             android:id="@+id/txtRating"
             android:padding="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/txtEjemploDescuento"
+            android:layout_below="@id/rlPreciosYEditar"
             android:layout_marginTop="10dp"
-            android:text="Rating: ★★★★☆"
+            android:text="Puntuacion: ★★★★☆"
             android:textSize="16sp" />
 
         <com.google.android.material.button.MaterialButton

@@ -53,8 +53,7 @@
             android:maxLines="1"
             android:layout_gravity="bottom"
             android:textStyle="bold"
-            android:textSize="18sp"
-            />
+            android:textSize="18sp"/>
 
         <TextView
             android:textStyle="bold"

@@ -12,6 +12,7 @@ import com.example.slopshop.Adaptador.AdaptadorImagenProducto
 import com.example.slopshop.Entidades.Producto
 import com.example.slopshop.databinding.FragmentVerYEditarProductoBinding
 import com.google.firebase.database.*
+import com.example.slopshop.R
 
 class FragmentVerYEditarProducto : Fragment() {
 
@@ -48,6 +49,23 @@ class FragmentVerYEditarProducto : Fragment() {
         } else {
             Toast.makeText(requireContext(), "ID de producto no válido", Toast.LENGTH_SHORT).show()
         }
+
+        binding.btnEditar.setOnClickListener {
+            productoId?.let { id ->
+                val fragmentEditar = FragmentEditarProducto().apply {
+                    arguments = Bundle().apply {
+                        putString("productoId", id)
+                    }
+                }
+                requireActivity().supportFragmentManager.beginTransaction()
+                    .replace(R.id.navFragment, fragmentEditar)
+                    .addToBackStack(null)
+                    .commit()
+            } ?: run {
+                Toast.makeText(requireContext(), "ID de producto no válido", Toast.LENGTH_SHORT).show()
+            }
+        }
+
 
         binding.btnAccionProducto.setOnClickListener {
             Toast.makeText(requireContext(), "Función no implementada", Toast.LENGTH_SHORT).show()
