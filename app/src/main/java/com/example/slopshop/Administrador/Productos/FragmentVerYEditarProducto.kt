@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.example.slopshop.Adaptador.AdaptadorImagenProducto
 import com.example.slopshop.Entidades.Producto
 import com.example.slopshop.databinding.FragmentVerYEditarProductoBinding
@@ -74,18 +75,88 @@ class FragmentVerYEditarProducto : Fragment() {
         binding.tituloProducto.text = producto.nombre
         binding.txtCategoria.text = "Categoría: ${producto.categoria}"
         binding.txtDescripcion.text = producto.descipcion
-        binding.txtPrecio.text = "Precio: $${producto.precio}"
-        binding.txtPrecioDescuento.text = "Precio con Descuento: $${producto.precioDescuento}"
-        binding.txtEjemploDescuento.text = producto.ejemploDescuento
-        binding.txtRating.text = "Rating: ★★★★☆" // Puedes personalizar esto si agregás soporte a rating real
 
+        mostrarDescuento(producto)
+
+        binding.txtRating.text = "Rating: ★★★★☆"
+
+
+        
         listaImagenes.clear()
-        // Si tu clase Producto no tiene lista de imágenes, puedes agregarla.
-        // Ejemplo:
-        // producto.imagenes?.let { listaImagenes.addAll(it) }
         adaptadorImagenes.notifyDataSetChanged()
+
+        cargarPrimeraImagen(producto.id)
+        cargarImagenesProducto(producto.id)
     }
 
+    private fun mostrarDescuento(producto: Producto) {
+        if (producto.precioDescuento != "0") {
+
+            binding.txtPrecio.apply {
+                text = "Precio: ${producto.precio}€"
+                paintFlags = paintFlags or android.graphics.Paint.STRIKE_THRU_TEXT_FLAG
+                setTypeface(typeface, android.graphics.Typeface.NORMAL)
+                visibility = View.VISIBLE
+            }
+            binding.txtPrecioDescuento.visibility = View.VISIBLE
+            binding.txtEjemploDescuento.visibility = View.VISIBLE
+
+            binding.txtPrecioDescuento.text = "Precio: ${producto.precioDescuento}€"
+            binding.txtEjemploDescuento.text = producto.ejemploDescuento
+        } else {
+
+            binding.txtPrecio.visibility = View.VISIBLE
+            binding.txtPrecioDescuento.visibility = View.GONE
+            binding.txtEjemploDescuento.visibility = View.GONE
+
+            binding.txtPrecio.text = "Precio: ${producto.precio}€"
+        }
+    }
+
+    private fun cargarPrimeraImagen(id: String) {
+        val ref = FirebaseDatabase.getInstance().getReference("Productos")
+        ref.child(id).child("Imagenes Producto")
+            .limitToFirst(1)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    for (uri in snapshot.children) {
+                        val imagenUrl = "${uri.child("imagenUrl").value}"
+                        try {
+                            Glide.with(requireContext())
+                                .load(imagenUrl)
+                                .placeholder(android.R.color.background_light)
+                                .fitCenter()
+                                .into(binding.imagenPrincipalProducto)
+                        } catch (e: Exception) {
+                            println("No se ha podido cargar la imagen: $e")
+                        }
+                    }
+                }
+                override fun onCancelled(error: DatabaseError) {
+                    Toast.makeText(requireContext(), "Error cargando imagen", Toast.LENGTH_SHORT).show()
+                }
+            })
+    }
+
+    private fun cargarImagenesProducto(id: String) {
+        val ref = FirebaseDatabase.getInstance().getReference("Productos").child(id).child("Imagenes Producto")
+        ref.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                listaImagenes.clear()
+                for (imageSnapshot in snapshot.children) {
+                    val imagenUrl = imageSnapshot.child("imagenUrl").getValue(String::class.java)
+                    imagenUrl?.let {
+                        listaImagenes.add(it)
+                    }
+                }
+                adaptadorImagenes.notifyDataSetChanged()
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(requireContext(), "Error cargando imágenes", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
     companion object {
         private const val ARG_PRODUCTO_ID = "producto_id"
 

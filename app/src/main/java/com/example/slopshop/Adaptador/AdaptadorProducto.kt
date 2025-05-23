@@ -42,15 +42,17 @@ class AdaptadorProducto : RecyclerView.Adapter<AdaptadorProducto.HolderProducto>
         val precio = modeloProducto.precio
         val precioDescuento = modeloProducto.precioDescuento
         val ejemploDescuento = modeloProducto.ejemploDescuento
+        val descricionProducto= modeloProducto.descipcion
 
         cargarPrimeraImagen(modeloProducto, holder)
 
         holder.nombreProducto.text="${nombre}"
-        holder.precioProducto.text="${precio}${" EUR"}"
+        holder.precioProducto.text="${precio}${" €"}"
         holder.precioDescuento.text="${precioDescuento}"
         holder.ejemploDescuento.text="${ejemploDescuento}"
 
         if(precioDescuento.isNotEmpty() && ejemploDescuento.isNotEmpty()){
+
             mostrarDescuento(holder)
         }
 
@@ -66,14 +68,27 @@ class AdaptadorProducto : RecyclerView.Adapter<AdaptadorProducto.HolderProducto>
                     val precioDescuento="${producto.child("precioDescuento").value}"
 
                     if(precioDescuento.isNotEmpty() && ejemploDescuento.isNotEmpty()){
-                        holder.precioDescuento.text="${precioDescuento}${" EUR"}"
+                        holder.precioDescuento.text="${precioDescuento}${" €"}"
                         holder.ejemploDescuento.text="${ejemploDescuento}"
 
                         holder.ejemploDescuento.visibility=View.VISIBLE
                         holder.precioDescuento.visibility=View.VISIBLE
 
+                        holder.precioProducto.apply {
+                            paintFlags = paintFlags or android.graphics.Paint.STRIKE_THRU_TEXT_FLAG
+                            setTypeface(typeface, android.graphics.Typeface.NORMAL)
+                            textSize = 15f
+                            visibility = View.VISIBLE
+                        }
+
                     } else{
-                        //TODO LOG
+                        holder.precioDescuento.visibility = View.GONE
+                        holder.ejemploDescuento.visibility = View.GONE
+
+                        holder.precioProducto.apply {
+                            paintFlags = paintFlags and android.graphics.Paint.STRIKE_THRU_TEXT_FLAG.inv()
+                            visibility = View.VISIBLE
+                        }
                     }
                 }
             }

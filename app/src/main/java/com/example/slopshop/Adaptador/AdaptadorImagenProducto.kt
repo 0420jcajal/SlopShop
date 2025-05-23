@@ -25,12 +25,13 @@ class AdaptadorImagenProducto(
             .load(urlImagen)
             .placeholder(R.drawable.icono_producto)
             .error(R.drawable.icono_producto)
+            .fitCenter()
             .into(holder.imgProducto)
     }
 
     override fun getItemCount(): Int = listaImagenes.size
 
     class ImagenViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val imgProducto: ImageView = itemView.findViewById(R.id.imagenProducto)
+        val imgProducto: ImageView = itemView.findViewById(R.id.imagenItem)
     }
 }

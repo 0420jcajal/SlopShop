@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="10dp"
     app:cardUseCompatPadding="true">
-    
+
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -48,18 +48,25 @@
             android:id="@+id/precioProducto"
             android:text="@string/precioProducto"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:maxLines="1"/>
+            android:maxLines="1"
+            android:layout_gravity="bottom"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            />
 
         <TextView
+            android:textStyle="bold"
             android:id="@+id/precioDescuento"
             android:text="@string/descuentoProducto"
-            android:layout_width="wrap_content"
             android:visibility="gone"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:maxLines="1"/>
+            android:maxLines="1"
+            android:textColor="#43A047"
+            android:textSize="18sp"/>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

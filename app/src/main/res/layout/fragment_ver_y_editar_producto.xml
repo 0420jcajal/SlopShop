@@ -10,22 +10,31 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Cesta picnic de ratán"
-        android:textSize="50sp"
+        android:textSize="40sp"
         android:textStyle="bold"
         android:padding="5dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/handwrite"/>
 
+    <ImageView
+        android:id="@+id/imagenPrincipalProducto"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:scaleType="fitCenter"
+        android:layout_below="@id/tituloProducto"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvImagenesProducto"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_below="@id/tituloProducto"
+        android:layout_height="100dp"
+        android:layout_below="@id/imagenPrincipalProducto"
         android:layout_marginTop="16dp"
         android:padding="5dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:orientation="vertical"/>
+        />
 
     <TextView
         android:id="@+id/txtCategoria"
@@ -53,6 +62,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/txtDescripcion"
         android:layout_marginTop="8dp"
+        android:textStyle="bold"
         android:text="Precio: $125.75"
         android:padding="5dp"
         android:textSize="16sp" />
@@ -63,8 +73,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/txtPrecio"
         android:layout_marginTop="4dp"
+        android:textStyle="bold"
         android:text="Precio con Descuento: $99.99"
-        android:textSize="16sp"
+        android:textSize="20sp"
         android:padding="5dp"
         android:textColor="@android:color/holo_red_dark" />
 
