@@ -93,7 +93,6 @@
             android:padding="5dp"
             android:textSize="14sp" />
 
-        <!-- Placeholder para el Rating -->
         <TextView
             android:id="@+id/txtRating"
             android:padding="5dp"
