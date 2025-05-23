@@ -7,7 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.slopshop.Adaptador.AdaptadorProducto
+import com.example.slopshop.Administrador.Productos.FragmentVerYEditarProducto
 import com.example.slopshop.Entidades.Producto
 import com.example.slopshop.R
 import com.example.slopshop.databinding.FragmentCatalogoUBinding
@@ -45,6 +47,28 @@ class FragmentCatalogoU : Fragment() {
         binding.catalogoProductosRV.layoutManager = GridLayoutManager(mContext, 2)
         adaptadorProducto = AdaptadorProducto(mContext, ArrayList())
         binding.catalogoProductosRV.adapter = adaptadorProducto
+
+        binding.catalogoProductosRV.addOnChildAttachStateChangeListener(object :
+            RecyclerView.OnChildAttachStateChangeListener {
+            override fun onChildViewAttachedToWindow(view: View) {
+                view.setOnClickListener {
+                    val holder = binding.catalogoProductosRV.getChildViewHolder(view)
+                    val position = holder.adapterPosition
+                    if (position != RecyclerView.NO_POSITION) {
+                        val productoSeleccionado = listaProductos[position]
+
+                        parentFragmentManager.beginTransaction()
+                            .replace(
+                                R.id.bottomFragment,
+                                FragmentVerYEditarProducto.newInstance(productoSeleccionado.id)
+                            )
+                            .addToBackStack(null)
+                            .commit()
+                    }
+                }
+            }
+            override fun onChildViewDetachedFromWindow(view: View) {}
+        })
 
         binding.btnPrev.setOnClickListener{
             if(currentPage>0){

@@ -10,13 +10,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.slopshop.Adaptador.AdaptadorImagenProducto
 import com.example.slopshop.Entidades.Producto
+import com.example.slopshop.databinding.FragmentVerYComprarProductoBinding
 import com.example.slopshop.databinding.FragmentVerYEditarProductoBinding
 import com.google.firebase.database.*
 
-class FragmentVerYEditarProducto : Fragment() {
+class FragmentVerYComprarProducto : Fragment() {
 
     private var productoId: String? = null
-    private lateinit var binding: FragmentVerYEditarProductoBinding
+    private lateinit var binding: FragmentVerYComprarProductoBinding
     private lateinit var listaImagenes: ArrayList<String>
     private lateinit var adaptadorImagenes: AdaptadorImagenProducto
 
@@ -30,7 +31,7 @@ class FragmentVerYEditarProducto : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        binding = FragmentVerYEditarProductoBinding.inflate(inflater, container, false)
+        binding = FragmentVerYComprarProductoBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -82,7 +83,7 @@ class FragmentVerYEditarProducto : Fragment() {
         binding.txtRating.text = "Rating: ★★★★☆"
 
 
-        
+
         listaImagenes.clear()
         adaptadorImagenes.notifyDataSetChanged()
 

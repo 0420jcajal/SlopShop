@@ -27,6 +27,7 @@ class AdaptadorProducto : RecyclerView.Adapter<AdaptadorProducto.HolderProducto>
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HolderProducto {
+
         binding = ItemProductoBinding.inflate(LayoutInflater.from(mContext), parent, false)
         return HolderProducto(binding.root)
     }
@@ -42,7 +43,7 @@ class AdaptadorProducto : RecyclerView.Adapter<AdaptadorProducto.HolderProducto>
         val precio = modeloProducto.precio
         val precioDescuento = modeloProducto.precioDescuento
         val ejemploDescuento = modeloProducto.ejemploDescuento
-        val descricionProducto= modeloProducto.descipcion
+        val descricionProducto= modeloProducto.descripcion
 
         cargarPrimeraImagen(modeloProducto, holder)
 

@@ -52,6 +52,15 @@ class FragmentInicioA : Fragment() {
 
         return binding.root
     }
+    fun ocultarBarraYFab() {
+        binding.bottonAppBar.visibility = View.GONE
+        binding.addFab.visibility = View.GONE
+    }
+
+    fun mostrarBarraYFab() {
+        binding.bottonAppBar.visibility = View.VISIBLE
+        binding.addFab.visibility = View.VISIBLE
+    }
 
     private fun cambiarFragmento(fragment: Fragment) {
         parentFragmentManager

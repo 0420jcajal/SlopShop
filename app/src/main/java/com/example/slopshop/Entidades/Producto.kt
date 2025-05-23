@@ -6,7 +6,7 @@ class Producto : Serializable{
 
     var id : String = ""
     var nombre : String = ""
-    var descipcion : String = ""
+    var descripcion : String = ""
     var categoria : String = ""
     var precio : String = ""
     var precioDescuento : String = ""
@@ -17,7 +17,7 @@ class Producto : Serializable{
     constructor(
         id: String,
         nombre: String,
-        descipcion: String,
+        descripcion: String,
         categoria: String,
         precio: String,
         precioDescuento: String,
@@ -26,7 +26,7 @@ class Producto : Serializable{
     ) {
         this.id = id
         this.nombre = nombre
-        this.descipcion = descipcion
+        this.descripcion = descripcion
         this.categoria = categoria
         this.precio = precio
         this.precioDescuento = precioDescuento
