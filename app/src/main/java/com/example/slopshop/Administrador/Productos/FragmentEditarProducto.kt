@@ -24,6 +24,7 @@ class FragmentEditarProducto : Fragment() {
     private lateinit var tvCategoria: TextView
     private lateinit var btnGuardar: MaterialButton
     private lateinit var ivImagenProducto: ImageView
+    private lateinit var btnEliminar : MaterialButton
 
     private lateinit var productoId: String
 
@@ -51,6 +52,7 @@ class FragmentEditarProducto : Fragment() {
         tvCategoria = view.findViewById(R.id.categoria)
         btnGuardar = view.findViewById(R.id.btnGuardarCambios)
         ivImagenProducto = view.findViewById(R.id.imagenProductoEditar)
+        btnEliminar= view.findViewById(R.id.btnEliminar)
 
         productoId = arguments?.getString("productoId") ?: ""
 
@@ -74,7 +76,6 @@ class FragmentEditarProducto : Fragment() {
                 etNotaDescuento.visibility = View.GONE
             }
         }
-
         tvCategoria.setOnClickListener {
             mostrarSelectorCategorias()
         }
@@ -87,18 +88,95 @@ class FragmentEditarProducto : Fragment() {
             mostrarConfirmacionGuardar()
         }
 
+
+        btnEliminar.setOnClickListener {
+            mostrarConfirmacionEliminar()
+        }
+
         return view
     }
+
+    private fun mostrarConfirmacionEliminar() {
+        AlertDialog.Builder(requireContext())
+            .setTitle("Eliminar producto")
+            .setMessage("¿Estás seguro de que deseas eliminar este producto? Esta acción no se puede deshacer.")
+            .setPositiveButton("Eliminar") { dialog, _ ->
+                dialog.dismiss()
+                eliminarProductoDeFirebase()
+            }
+            .setNegativeButton("Cancelar") { dialog, _ -> dialog.dismiss() }
+            .show()
+    }
+
+    private fun eliminarProductoDeFirebase() {
+        val dbRef = FirebaseDatabase.getInstance().getReference("Productos").child(productoId)
+        val storageRef = com.google.firebase.storage.FirebaseStorage.getInstance().getReference("Productos")
+
+        dbRef.get().addOnSuccessListener { snapshot ->
+            if (!snapshot.exists()) {
+                Toast.makeText(context, "Producto no encontrado", Toast.LENGTH_SHORT).show()
+                return@addOnSuccessListener
+            }
+
+            val imagenesSnap = snapshot.child("Imagenes Producto")
+            val imagenesIds = imagenesSnap.children.mapNotNull { it.key }
+
+            if (imagenesIds.isEmpty()) {
+                Toast.makeText(context, "No se ha podido borrar el producto porque no se encuentran sus imagenes", Toast.LENGTH_SHORT).show()
+                return@addOnSuccessListener
+            }
+
+            var eliminadas = 0
+            var fallo = false
+
+            for (imagenId in imagenesIds) {
+                val imgRef = storageRef.child(imagenId)
+                imgRef.delete().addOnSuccessListener {
+                    eliminadas++
+                    if (eliminadas == imagenesIds.size && !fallo) {
+                        eliminarProductoDeBaseDeDatos(dbRef)
+                    }
+                }.addOnFailureListener {
+                    fallo = true
+                    Toast.makeText(context, "Error al eliminar imagen: $imagenId", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+        }.addOnFailureListener {
+            Toast.makeText(context, "Error al acceder a los datos", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun eliminarProductoDeBaseDeDatos(dbRef: com.google.firebase.database.DatabaseReference) {
+        dbRef.removeValue().addOnSuccessListener {
+
+            Toast.makeText(context, "Producto eliminado correctamente", Toast.LENGTH_SHORT).show()
+
+            val fragmentProductos = com.example.slopshop.Administrador.Bottom_Nav_Fragments_Administrador.FragmentProductosA()
+
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.navFragment, fragmentProductos)
+                .commit()
+
+        }.addOnFailureListener {
+            Toast.makeText(context, "Error al eliminar el producto", Toast.LENGTH_SHORT).show()
+        }
+    }
+
 
     private fun cargarCategoriasDesdeFirebase() {
         val dbRef = FirebaseDatabase.getInstance().getReference("Categorías")
 
         dbRef.get().addOnSuccessListener { snapshot ->
+
             listaCategorias.clear()
+
             for (categoriaSnap in snapshot.children) {
+
                 val id = categoriaSnap.key ?: ""
                 val categoriaNombre = categoriaSnap.child("categoria").getValue(String::class.java) ?: ""
                 val imagenUrl = categoriaSnap.child("imagenUrl").getValue(String::class.java)
+
                 if (id.isNotEmpty() && categoriaNombre.isNotEmpty()) {
                     listaCategorias.add(Categoria(id, categoriaNombre, imagenUrl))
                 }
@@ -109,9 +187,12 @@ class FragmentEditarProducto : Fragment() {
     }
 
     private fun mostrarSelectorCategorias() {
+
         if (listaCategorias.isEmpty()) {
+
             Toast.makeText(context, "No hay categorías disponibles", Toast.LENGTH_SHORT).show()
             return
+
         }
 
         val categoriasNombres = listaCategorias.map { it.categoria }.toTypedArray()
@@ -119,10 +200,12 @@ class FragmentEditarProducto : Fragment() {
         AlertDialog.Builder(requireContext())
             .setTitle("Selecciona una categoría")
             .setItems(categoriasNombres) { dialog, which ->
+
                 val categoriaSeleccionada = listaCategorias[which]
                 tvCategoria.text = categoriaSeleccionada.categoria
                 categoriaSeleccionadaId = categoriaSeleccionada.id
                 dialog.dismiss()
+
             }
             .show()
     }
@@ -142,7 +225,9 @@ class FragmentEditarProducto : Fragment() {
     }
 
     private fun irAVeryEditarProducto() {
+
         val fragmentVerYEditar = FragmentVerYEditarProducto.newInstance(productoId)
+
         requireActivity().supportFragmentManager.beginTransaction()
             .replace(R.id.navFragment, fragmentVerYEditar)
             .addToBackStack(null)
@@ -163,8 +248,11 @@ class FragmentEditarProducto : Fragment() {
 
 
                 val imagenesProductoSnap = snapshot.child("Imagenes Producto")
+
                 if (imagenesProductoSnap.exists() && imagenesProductoSnap.hasChildren()) {
+
                     val primeraImagenUrl = imagenesProductoSnap.children.first().child("imagenUrl").getValue(String::class.java)
+
                     if (!primeraImagenUrl.isNullOrEmpty()) {
                         Glide.with(requireContext())
                             .load(primeraImagenUrl)
@@ -189,6 +277,7 @@ class FragmentEditarProducto : Fragment() {
     }
 
     private fun guardarCambiosEnFirebase(onComplete: () -> Unit) {
+
         val nombre = etNombre.text.toString().trim()
         val descripcion = etDescripcion.text.toString().trim()
         val precio = etPrecio.text.toString().trim()

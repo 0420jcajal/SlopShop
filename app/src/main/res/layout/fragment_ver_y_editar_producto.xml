@@ -56,10 +56,15 @@
             android:layout_below="@id/txtCategoria"
             android:layout_marginTop="8dp"
             android:padding="5dp"
-            android:text="Descripcion del producto \nY\nDetalles"
+            android:text="Descripcion del producto \n     Y\nDetalles"
             android:textSize="16sp" />
 
-
+        <RelativeLayout
+            android:id="@+id/rlPreciosYEditar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txtDescripcion"
+            android:layout_marginEnd="10dp">
 
             <TextView
                 android:id="@+id/txtPrecio"
@@ -68,23 +73,16 @@
                 android:layout_marginTop="10dp"
                 android:padding="5dp"
                 android:text="Precio: 125.75€"
-                android:layout_below="@id/txtDescripcion"
                 android:textStyle="bold"
                 android:textSize="16sp" />
 
-        <RelativeLayout
-            android:id="@+id/rlPreciosYEditar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/txtPrecio"
 
-
->
             <TextView
                 android:id="@+id/txtPrecioDescuento"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:layout_below="@id/txtPrecio"
                 android:text="Precio Descuento: 99.99€"
                 android:textStyle="bold"
                 android:textSize="22sp"
@@ -98,22 +96,24 @@
                 app:icon="@drawable/icono_editar"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                app:iconSize="32dp"
+                app:iconSize="40dp"
                 app:iconPadding="0dp"
                 app:iconGravity="textStart" />
+
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/txtEjemploDescuento"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/txtPrecioDescuento"
+                android:layout_below="@id/rlPreciosYEditar"
                 android:layout_marginTop="8dp"
                 android:text="20% Descuento"
                 android:textStyle="italic"
                 android:padding="5dp"
                 android:textSize="14sp" />
 
-        </RelativeLayout>
+
 
 
 
@@ -122,7 +122,7 @@
             android:padding="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/rlPreciosYEditar"
+            android:layout_below="@id/txtEjemploDescuento"
             android:layout_marginTop="8dp"
             android:text="Puntuacion: ★★★★☆"
             android:textSize="16sp" />

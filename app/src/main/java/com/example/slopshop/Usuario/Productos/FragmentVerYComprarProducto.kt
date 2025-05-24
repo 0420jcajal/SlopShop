@@ -1,18 +1,22 @@
-package com.example.slopshop.Administrador.Productos
+package com.example.slopshop.Usuario.Productos
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.example.slopshop.R
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.slopshop.Adaptador.AdaptadorImagenProducto
+import com.example.slopshop.Administrador.Productos.FragmentVerYEditarProducto
 import com.example.slopshop.Entidades.Producto
+import com.example.slopshop.Usuario.Puntuaciones.FragmentPublicarComentario
+import com.example.slopshop.Usuario.Productos.FragmentComentariosProductoU
 import com.example.slopshop.databinding.FragmentVerYComprarProductoBinding
-import com.example.slopshop.databinding.FragmentVerYEditarProductoBinding
 import com.google.firebase.database.*
+
 
 class FragmentVerYComprarProducto : Fragment() {
 
@@ -50,8 +54,17 @@ class FragmentVerYComprarProducto : Fragment() {
             Toast.makeText(requireContext(), "ID de producto no válido", Toast.LENGTH_SHORT).show()
         }
 
-        binding.btnAccionProducto.setOnClickListener {
-            Toast.makeText(requireContext(), "Función no implementada", Toast.LENGTH_SHORT).show()
+        binding.btnVerComentarios.setOnClickListener {
+            productoId?.let { id ->
+                parentFragmentManager
+                    .beginTransaction()
+                    .replace(
+                        R.id.navFragment,
+                        FragmentComentariosProductoU.newInstance(id)
+                    )
+                    .addToBackStack(null)
+                    .commit()
+            } ?: Toast.makeText(requireContext(), "Ha habido un error al cargar los comentarios", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -162,12 +175,12 @@ class FragmentVerYComprarProducto : Fragment() {
     companion object {
         private const val ARG_PRODUCTO_ID = "producto_id"
 
-        fun newInstance(id: String): FragmentVerYEditarProducto {
-            val fragment = FragmentVerYEditarProducto()
-            val args = Bundle()
-            args.putString(ARG_PRODUCTO_ID, id)
-            fragment.arguments = args
-            return fragment
+        fun newInstance(id: String): FragmentVerYComprarProducto {
+            return FragmentVerYComprarProducto().apply {
+                arguments = Bundle().apply {
+                    putString(ARG_PRODUCTO_ID, id)
+                }
+            }
         }
     }
 }

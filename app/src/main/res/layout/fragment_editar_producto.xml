@@ -128,14 +128,18 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnEliminar"
-                    android:text="Eliminar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAllCaps="false"
                     android:layout_marginStart="8dp"
-                    android:minWidth="80dp"
-                    android:padding="4dp"
-                    android:textSize="14sp"/>
+                    android:minWidth="0dp"
+                    android:padding="10dp"
+                    android:textSize="14sp"
+                    app:backgroundTint="@color/rojo"
+                    app:icon="@drawable/icono_borrar_xml"
+                    android:layout_marginEnd="5dp"
+                    app:iconSize="40dp"
+                    app:iconPadding="0dp"
+                    app:iconGravity="textStart" />
             </LinearLayout>
 
             <androidx.appcompat.widget.SwitchCompat

@@ -9,9 +9,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.slopshop.Adaptador.AdaptadorProducto
-import com.example.slopshop.Administrador.Productos.FragmentVerYEditarProducto
+
 import com.example.slopshop.Entidades.Producto
 import com.example.slopshop.R
+import com.example.slopshop.Usuario.Productos.FragmentVerYComprarProducto
 import com.example.slopshop.databinding.FragmentCatalogoUBinding
 import com.example.slopshop.databinding.FragmentProductosABinding
 import com.google.firebase.database.DataSnapshot
@@ -46,6 +47,7 @@ class FragmentCatalogoU : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.catalogoProductosRV.layoutManager = GridLayoutManager(mContext, 2)
         adaptadorProducto = AdaptadorProducto(mContext, ArrayList())
+
         binding.catalogoProductosRV.adapter = adaptadorProducto
 
         binding.catalogoProductosRV.addOnChildAttachStateChangeListener(object :
@@ -59,8 +61,8 @@ class FragmentCatalogoU : Fragment() {
 
                         parentFragmentManager.beginTransaction()
                             .replace(
-                                R.id.bottomFragment,
-                                FragmentVerYEditarProducto.newInstance(productoSeleccionado.id)
+                                R.id.navFragment,
+                                FragmentVerYComprarProducto.newInstance(productoSeleccionado.id)
                             )
                             .addToBackStack(null)
                             .commit()

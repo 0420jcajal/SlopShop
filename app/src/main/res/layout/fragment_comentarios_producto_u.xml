@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="12dp"
+    tools:context=".Usuario.Productos.FragmentComentariosProductoU">
+
+    <LinearLayout
+        android:id="@+id/headerComentarios"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+
+        >
+
+        <TextView
+            android:id="@+id/tituloComentarios"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+
+            android:text="Comentarios"
+            android:textSize="35sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/handwrite"/>
+
+        <RatingBar
+            android:id="@+id/ratingPromedio"
+            style="?android:attr/ratingBarStyleIndicator"
+            android:layout_width="177dp"
+            android:layout_height="wrap_content"
+            android:isIndicator="true"
+            android:numStars="5"
+            android:progressTint="@color/verde_claro"
+            android:progressTintMode="src_in"
+            android:scaleX="0.8"
+            android:scaleY="0.8"
+            android:stepSize="0.5"
+            android:layout_marginEnd="0dp"/>
+        <TextView
+            android:id="@+id/tvPromedioValor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0.0"
+            android:textSize="20sp"
+            android:textStyle="bold"/>
+
+    </LinearLayout>
+
+
+    <ImageView
+        android:id="@+id/imagenProducto"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_below="@+id/headerComentarios"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="12dp"
+        android:src="@drawable/icono_producto"
+        android:scaleType="centerCrop"
+        android:contentDescription="Imagen comentario" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerComentarios"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_below="@+id/imagenProducto"
+        android:layout_above="@+id/btnPublicar"
+        tools:listitem="@layout/item_comentario"
+        android:layout_margin="5dp" />
+
+    <Button
+        android:id="@+id/btnPublicar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Publicar Comentario"
+        android:layout_alignParentBottom="true"
+        android:textColor="@android:color/white"
+        android:layout_margin="10dp"/>
+
+</RelativeLayout>

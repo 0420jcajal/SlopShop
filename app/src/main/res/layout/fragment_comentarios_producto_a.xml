@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="12dp"
+    tools:context="">
+
+    <LinearLayout
+        android:id="@+id/headerComentarios"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="8dp">
+
+        <TextView
+            android:id="@+id/tituloComentarios"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Comentarios"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <RatingBar
+            android:id="@+id/ratingPromedio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:isIndicator="true"
+            android:numStars="5"
+            android:stepSize="0.5"
+            style="?android:attr/ratingBarStyleSmall" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imagenComentario"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_below="@+id/headerComentarios"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="12dp"
+        android:src="@drawable/icono_producto"
+        android:scaleType="centerCrop"
+        android:contentDescription="Imagen comentario" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerComentarios"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_below="@+id/imagenComentario"
+        android:layout_above="@+id/btnPublicar"
+        tools:listitem="@layout/item_comentario"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp" />
+
+    <Button
+        android:id="@+id/btnPublicar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Publicar Comentario"
+        android:layout_alignParentBottom="true"
+        android:textColor="@android:color/white" />
+
+</RelativeLayout>

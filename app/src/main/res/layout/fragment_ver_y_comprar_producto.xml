@@ -59,34 +59,57 @@
             android:text="Descripcion del producto \nY\nDetalles"
             android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/txtPrecio"
+        <RelativeLayout
+            android:id="@+id/rlPreciosYEditar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/txtDescripcion"
-            android:layout_marginTop="8dp"
-            android:textStyle="bold"
-            android:text="Precio: 125.75€"
-            android:padding="5dp"
-            android:textSize="16sp" />
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="10dp">
 
-        <TextView
-            android:id="@+id/txtPrecioDescuento"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/txtPrecio"
-            android:layout_marginTop="4dp"
-            android:textStyle="bold"
-            android:text="Precio Descuento: 99.99€"
-            android:textSize="20sp"
-            android:padding="5dp"
-            android:textColor="@android:color/holo_red_dark" />
+            <TextView
+                android:id="@+id/txtPrecio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:padding="5dp"
+                android:text="Precio: 125.75€"
+                android:textStyle="bold"
+                android:textSize="16sp" />
+
+
+            <TextView
+                android:id="@+id/txtPrecioDescuento"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_below="@id/txtPrecio"
+                android:text="Precio Descuento: 99.99€"
+                android:textStyle="bold"
+                android:textSize="22sp"
+                android:padding="5dp"
+                android:textColor="@android:color/holo_red_dark" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnEditar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:icon="@drawable/icono_agregar_al_carrito"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                app:iconSize="40dp"
+                app:iconPadding="0dp"
+                app:iconGravity="textStart"
+                android:backgroundTint="@color/verde_claro"
+                />
+
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/txtEjemploDescuento"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/txtPrecioDescuento"
+            android:layout_below="@id/rlPreciosYEditar"
             android:layout_marginTop="4dp"
             android:text="20% Descuento"
             android:textStyle="italic"
@@ -104,7 +127,7 @@
             android:textSize="16sp" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnAccionProducto"
+            android:id="@+id/btnVerComentarios"
             android:padding="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -114,24 +137,6 @@
             android:layout_marginBottom="20dp" />
 
 
-        <TextView
-            android:id="@+id/txtPrueba"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/btnAccionProducto"
-            android:layout_marginTop="10dp"
-            android:text="Texto de prueba"
-            android:textSize="16sp"
-            android:padding="5dp" />
-        <TextView
-            android:id="@+id/txtPrueba1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/txtPrueba"
-            android:layout_marginTop="10dp"
-            android:text="Texto de prueba"
-            android:textSize="16sp"
-            android:padding="5dp" />
 
     </RelativeLayout>
 </ScrollView>

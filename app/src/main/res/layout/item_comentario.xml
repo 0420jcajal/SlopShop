@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:orientation="horizontal"
+        android:gravity="top"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp">
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
+
+            <ImageView
+                android:id="@+id/imagenUsuario"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="8dp"
+                android:scaleType="centerCrop"
+                android:background="@drawable/custom_image_view"
+                android:clipToOutline="true"
+                android:src="@drawable/icocno_select_usuario" />
+
+            <TextView
+                android:id="@+id/nombreUsuario"
+                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:text="/Usuario"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:maxLines="3"
+                android:ellipsize="end"
+                android:layout_marginTop="4dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tituloComentario"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Título del comentario"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:maxLines="2"
+                android:ellipsize="end"/>
+
+
+            <TextView
+                android:id="@+id/textoComentario"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Aquí va el texto del comentario. Puede ser largo, hasta 200 líneas máximo."
+                android:textSize="14sp"
+                android:ellipsize="end"/>
+
+        </LinearLayout>
+
+
+        <RatingBar
+            android:id="@+id/estrellasComentario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:numStars="5"
+            android:rating="4.5"
+            android:stepSize="0.5"
+            android:isIndicator="true"
+            style="?android:attr/ratingBarStyleSmall" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

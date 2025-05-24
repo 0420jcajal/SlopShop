@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@android:id/background"
+        android:drawable="@drawable/estrella_vacia_rating" />
+
+    <item android:id="@android:id/secondaryProgress"
+        android:drawable="@drawable/estrella_media_rating" />
+
+    <item android:id="@android:id/progress"
+        android:drawable="@drawable/estrella_entera_rating" />
+
+</layer-list>

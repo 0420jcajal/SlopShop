@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Publicar Comentario"
+            android:textSize="45sp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:fontFamily="@font/handwrite"/>
+
+    </FrameLayout>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imgPublicarComentario"
+        android:layout_width="150dp"
+        android:layout_margin="10dp"
+        android:layout_height="150dp"
+        android:src="@drawable/icono_publicar_comentario"
+        android:layout_gravity="center"
+        android:layout_marginBottom="20dp"/>
+
+
+    <TextView
+        android:id="@+id/tvInvitacion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="¿Qué te ha parecido el producto? ¡Tu opinión nos importa!"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:layout_margin="16dp"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:boxBackgroundMode="outline"
+                app:boxCornerRadiusTopStart="8dp"
+                app:boxCornerRadiusTopEnd="8dp"
+                app:boxCornerRadiusBottomStart="8dp"
+                app:boxCornerRadiusBottomEnd="8dp"
+                app:hintEnabled="true"
+                android:hint="Título del Comentario">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etTitulo"
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:inputType="textCapSentences"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="12dp"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:boxBackgroundMode="outline"
+                app:boxCornerRadiusTopStart="8dp"
+                app:boxCornerRadiusTopEnd="8dp"
+                app:boxCornerRadiusBottomStart="8dp"
+                app:boxCornerRadiusBottomEnd="8dp"
+                app:hintEnabled="true"
+                android:hint="Descripción del Producto"
+                app:counterEnabled="true"
+                app:counterMaxLength="200">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etDescripcion"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine"
+                    android:minLines="4"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+    </ScrollView>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="16dp"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="10dp"
+        android:layout_gravity="center_horizontal">
+
+        <RatingBar
+            android:layout_marginTop="2dp"
+            android:id="@+id/ratingBar"
+            style="?android:attr/ratingBarStyleIndicator"
+            android:layout_width="185dp"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:stepSize="0.5"
+            android:isIndicator="false"
+            android:scaleX="1"
+            android:scaleY="1"
+            />
+
+        <TextView
+            android:id="@+id/tvRatingValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:layout_marginStart="16dp"
+            android:textSize="30sp"
+            android:textStyle="bold"/>
+    </LinearLayout>
+
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnPublicar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Publicar Comentario"
+        android:layout_marginTop="8dp"
+        app:cornerRadius="8dp"
+        android:textColor="@android:color/white"/>
+</LinearLayout>
