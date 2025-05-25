@@ -24,21 +24,25 @@
         android:id="@+id/paginationBar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:minHeight="60dp"
+        android:minHeight="50dp"
         android:orientation="horizontal"
         android:padding="8dp"
-        android:layout_marginBottom="150dp"
+        android:layout_marginBottom="95dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:paddingBottom="80dp">
+        >
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnPrev"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:enabled="false"
-            android:text="@string/anteriorProducto"
+            app:icon="@drawable/icono_prev"
+            app:iconSize="40dp"
+            android:layout_gravity="center_vertical"
+            app:iconTint="@color/black"
+            android:backgroundTint="@color/white"
             tools:visibility="visible"/>
 
         <TextView
@@ -47,15 +51,23 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
+            android:textSize="20dp"
+            android:layout_gravity="center_vertical"
             android:text="@string/paginaProducto"
             tools:text="Página 1 de 3" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnNext"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/siguienteProducto"
-            tools:visibility="visible"/>
+            android:layout_height="30dp"
+            android:text=""
+            app:icon="@drawable/icono_next"
+            app:iconTint="@color/black"
+            android:backgroundTint="@color/white"
+            app:iconSize="40dp"
+            tools:visibility="visible"
+            android:layout_gravity="center_vertical"
+            />
     </LinearLayout>
 
 

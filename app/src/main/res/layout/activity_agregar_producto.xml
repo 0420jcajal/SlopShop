@@ -51,7 +51,10 @@
         android:layout_below="@+id/RLImagen"
         android:padding="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:layout_above="@+id/btnAgregarProducto"
+        android:layout_alignParentBottom="false"
+        android:paddingBottom="80dp">
 
         <RelativeLayout
             android:layout_width="match_parent"

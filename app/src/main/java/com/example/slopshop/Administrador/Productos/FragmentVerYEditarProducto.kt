@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.slopshop.Adaptador.AdaptadorImagenProducto
+import com.example.slopshop.Administrador.Puntuaciones.FragmentComentariosProductoA
 import com.example.slopshop.Entidades.Producto
 import com.example.slopshop.databinding.FragmentVerYEditarProductoBinding
 import com.google.firebase.database.*
@@ -67,8 +68,13 @@ class FragmentVerYEditarProducto : Fragment() {
         }
 
 
-        binding.btnAccionProducto.setOnClickListener {
-            Toast.makeText(requireContext(), "Función no implementada", Toast.LENGTH_SHORT).show()
+        binding.btnVerComentarios.setOnClickListener {
+            val fragment = FragmentComentariosProductoA.newInstance(productoId)
+
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.navFragment, fragment)
+                .addToBackStack(null)
+                .commit()
         }
     }
 
@@ -97,10 +103,8 @@ class FragmentVerYEditarProducto : Fragment() {
 
         mostrarDescuento(producto)
 
-        binding.txtRating.text = "Rating: ★★★★☆"
+        cargarRating(producto.id)
 
-
-        
         listaImagenes.clear()
         adaptadorImagenes.notifyDataSetChanged()
 
@@ -175,6 +179,33 @@ class FragmentVerYEditarProducto : Fragment() {
                 Toast.makeText(requireContext(), "Error cargando imágenes", Toast.LENGTH_SHORT).show()
             }
         })
+    }
+
+    private fun cargarRating(productoId: String) {
+        val ref = FirebaseDatabase.getInstance().getReference("Valoraciones")
+        ref.orderByChild("productId").equalTo(productoId)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    var total = 0f
+                    var count = 0
+                    for (valoracion in snapshot.children) {
+                        val puntuacion = valoracion.child("puntuacion").getValue(Int::class.java) ?: 0
+                        total += puntuacion
+                        count++
+                    }
+                    if (count > 0) {
+                        val promedio = total / count
+                        val estrellas = "★".repeat(promedio.toInt()) + "☆".repeat(5 - promedio.toInt())
+                        binding.txtRating.text = "Puntuación:  $estrellas  ${"%.1f".format(promedio)}"
+                    } else {
+                        binding.txtRating.text = "Sin puntuaciones aún"
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    binding.txtRating.text = "Error al cargar rating"
+                }
+            })
     }
     companion object {
         private const val ARG_PRODUCTO_ID = "producto_id"

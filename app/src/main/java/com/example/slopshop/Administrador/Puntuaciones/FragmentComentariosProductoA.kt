@@ -5,55 +5,132 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
+import com.example.slopshop.Adaptador.AdaptadorComentario
+import com.example.slopshop.Administrador.Productos.FragmentEditarProducto
+import com.example.slopshop.Entidades.Comentario
 import com.example.slopshop.R
+import com.example.slopshop.databinding.FragmentComentariosProductoABinding
+import com.example.slopshop.databinding.FragmentComentariosProductoUBinding
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [FragmentComentariosProductoA.newInstance] factory method to
- * create an instance of this fragment.
- */
 class FragmentComentariosProductoA : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
+    private var productId: String? = null
+    private lateinit var binding: FragmentComentariosProductoABinding
+    private lateinit var listaComentarios: ArrayList<Comentario>
+    private lateinit var adaptadorComentario: AdaptadorComentario
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+            productId = it.getString(ARG_PRODUCT_ID)
         }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_comentarios_producto_a, container, false)
+    ): View {
+        binding =FragmentComentariosProductoABinding.inflate(inflater, container, false)
+
+
+        listaComentarios = arrayListOf()
+        adaptadorComentario = AdaptadorComentario(requireContext(), listaComentarios)
+
+        binding.recyclerComentarios.adapter = adaptadorComentario
+        binding.recyclerComentarios.layoutManager = LinearLayoutManager(requireContext())
+
+
+        productId?.let {
+            cargarComentarios(it)
+            cargarImagenProducto(it)
+        }
+
+        binding.btnIrAEditar.setOnClickListener {
+            productId?.let { id ->
+                val fragmentEditar = FragmentEditarProducto().apply {
+                    arguments = Bundle().apply {
+                        putString("productoId", id)
+                    }
+                }
+                requireActivity().supportFragmentManager.beginTransaction()
+                    .replace(R.id.navFragment, fragmentEditar)
+                    .addToBackStack(null)
+                    .commit()
+            } ?: run {
+                Toast.makeText(requireContext(), "ID de producto no válido", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        return binding.root
+    }
+
+    private fun cargarComentarios(productId: String) {
+        val refComentarios = FirebaseDatabase.getInstance()
+            .getReference("Valoraciones")
+            .orderByChild("productId")
+            .equalTo(productId)
+
+        refComentarios.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                listaComentarios.clear()
+                for (comentarioSnap in snapshot.children) {
+                    val comentario = comentarioSnap.getValue(Comentario::class.java)
+                    comentario?.let { listaComentarios.add(it) }
+                }
+                adaptadorComentario.notifyDataSetChanged()
+
+                val promedio = if (listaComentarios.isNotEmpty()) {
+                    listaComentarios.map { it.puntuacion }.average().toFloat()
+                } else 0f
+
+                binding.ratingPromedio.rating = promedio
+                binding.tvPromedioValor.text = String.format("%.1f", promedio)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+        })
+    }
+
+    private fun cargarImagenProducto(productId: String) {
+        val ref = FirebaseDatabase.getInstance().getReference("Productos")
+            .child(productId).child("Imagenes Producto")
+            .limitToFirst(1)
+
+        ref.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for (uri in snapshot.children) {
+                    val imagenUrl = uri.child("imagenUrl").getValue(String::class.java)
+                    if (!imagenUrl.isNullOrEmpty()) {
+                        Glide.with(requireContext())
+                            .load(imagenUrl)
+                            .placeholder(R.drawable.icono_producto)
+                            .into(binding.imagenProducto)
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(requireContext(), "Error al cargar imagen del producto", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment FragmentComentariosProducto.
-         */
-        // TODO: Rename and change types and number of parameters
+        private const val ARG_PRODUCT_ID = "productId"
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
+        fun newInstance(productId: String?) =
             FragmentComentariosProductoA().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+                    putString(ARG_PRODUCT_ID, productId)
                 }
             }
     }

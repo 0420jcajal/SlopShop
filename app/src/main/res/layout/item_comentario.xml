@@ -5,7 +5,8 @@
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
     app:cardCornerRadius="12dp"
-    app:cardElevation="4dp">
+    app:cardElevation="4dp"
+    android:layout_marginBottom="5dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,8 +27,8 @@
 
             <ImageView
                 android:id="@+id/imagenUsuario"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_margin="8dp"
                 android:scaleType="centerCrop"
                 android:background="@drawable/custom_image_view"
@@ -37,9 +38,9 @@
             <TextView
                 android:id="@+id/nombreUsuario"
                 android:layout_height="wrap_content"
-                android:layout_width="100dp"
+                android:layout_width="50dp"
                 android:text="/Usuario"
-                android:textSize="15sp"
+                android:textSize="12sp"
                 android:textStyle="bold"
                 android:gravity="center"
                 android:maxLines="3"
@@ -58,7 +59,7 @@
                 android:id="@+id/tituloComentario"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Título del comentario"
+                android:text="Título de la reseña"
                 android:textStyle="bold"
                 android:textSize="15sp"
                 android:maxLines="2"
@@ -86,7 +87,9 @@
             android:rating="4.5"
             android:stepSize="0.5"
             android:isIndicator="true"
-            style="?android:attr/ratingBarStyleSmall" />
+            style="?android:attr/ratingBarStyleSmall"
+            android:scaleX="0.65"
+            android:scaleY="0.65"/>
 
     </LinearLayout>
 
