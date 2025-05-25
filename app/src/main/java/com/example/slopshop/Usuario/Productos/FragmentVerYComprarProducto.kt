@@ -15,6 +15,7 @@ import com.example.slopshop.Entidades.Producto
 import com.example.slopshop.Usuario.Puntuaciones.FragmentPublicarComentario
 import com.example.slopshop.Usuario.Productos.FragmentComentariosProductoU
 import com.example.slopshop.databinding.FragmentVerYComprarProductoBinding
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 
 
@@ -24,6 +25,8 @@ class FragmentVerYComprarProducto : Fragment() {
     private lateinit var binding: FragmentVerYComprarProductoBinding
     private lateinit var listaImagenes: ArrayList<String>
     private lateinit var adaptadorImagenes: AdaptadorImagenProducto
+
+    private var productoActual: Producto? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,6 +57,32 @@ class FragmentVerYComprarProducto : Fragment() {
             Toast.makeText(requireContext(), "ID de producto no válido", Toast.LENGTH_SHORT).show()
         }
 
+        binding.btnAgregarAlCarrito.setOnClickListener {
+            val nombre = binding.tituloProducto.text.toString()
+            val cantidad = binding.etQuantity.text.toString().toIntOrNull() ?: 1
+
+            val precioTotal = if (binding.txtPrecioDescuento.visibility == View.GONE) {
+                binding.txtPrecio.text.toString()
+            } else {
+                binding.txtPrecioDescuento.text.toString()
+            }
+            val precioUnitario = productoActual?.let {
+                (it.precioDescuento.takeIf { it != "0" } ?: it.precio).toDoubleOrNull() ?: 0.0
+            } ?: 0.0
+
+            val mensaje = "Producto: $nombre\nCantidad: $cantidad \nPrecio $precioTotal"
+            androidx.appcompat.app.AlertDialog.Builder(requireContext())
+                .setTitle("Confirmar Añadir al Carrito")
+                .setMessage(mensaje)
+                .setPositiveButton("Aceptar") { dialog, _ ->
+                    agregarProductoAlCarrito(productoId!!, nombre, cantidad.toInt(), precioUnitario)
+                    Toast.makeText(requireContext(), "Añadido el producto al carrito", Toast.LENGTH_SHORT).show()
+                    dialog.dismiss()
+                }
+                .setNegativeButton("Cancelar") { dialog, _ -> dialog.dismiss() }
+                .show()
+        }
+
         binding.btnVerComentarios.setOnClickListener {
             productoId?.let { id ->
                 parentFragmentManager
@@ -72,9 +101,9 @@ class FragmentVerYComprarProducto : Fragment() {
         val ref = FirebaseDatabase.getInstance().getReference("Productos").child(id)
         ref.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                val producto = snapshot.getValue(Producto::class.java)
-                if (producto != null) {
-                    mostrarDatosProducto(producto)
+                productoActual = snapshot.getValue(Producto::class.java)
+                if (productoActual != null) {
+                    mostrarDatosProducto(productoActual!!)
                 } else {
                     Toast.makeText(requireContext(), "Producto no encontrado", Toast.LENGTH_SHORT).show()
                 }
@@ -93,16 +122,84 @@ class FragmentVerYComprarProducto : Fragment() {
 
         mostrarDescuento(producto)
 
-        binding.txtRating.text = "Rating: ★★★★☆"
-
-
+        cargarRating(producto.id)
 
         listaImagenes.clear()
         adaptadorImagenes.notifyDataSetChanged()
 
         cargarPrimeraImagen(producto.id)
         cargarImagenesProducto(producto.id)
+
+        cantidadProducto(producto)
     }
+
+    private fun cargarRating(productoId: String) {
+        val ref = FirebaseDatabase.getInstance().getReference("Valoraciones")
+        ref.orderByChild("productId").equalTo(productoId)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    var total = 0f
+                    var count = 0
+                    for (valoracion in snapshot.children) {
+                        val puntuacion = valoracion.child("puntuacion").getValue(Int::class.java) ?: 0
+                        total += puntuacion
+                        count++
+                    }
+                    if (count > 0) {
+                        val promedio = total / count
+                        val estrellas = "★".repeat(promedio.toInt()) + "☆".repeat(5 - promedio.toInt())
+                        binding.txtRating.text = "Puntuación:  $estrellas  ${"%.1f".format(promedio)}"
+                    } else {
+                        binding.txtRating.text = "Sin puntuaciones aún"
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    binding.txtRating.text = "Error al cargar rating"
+                }
+            })
+    }
+
+    private fun cantidadProducto(producto: Producto) {
+        var cantidad = 1
+        actualizarPrecioTotal(producto, cantidad)
+        actualizarIcono(cantidad)
+
+        binding.btnSumar.setOnClickListener {
+            cantidad++
+            binding.etQuantity.setText(cantidad.toString())
+            actualizarPrecioTotal(producto, cantidad)
+            actualizarIcono(cantidad)
+        }
+
+        binding.btnRestar.setOnClickListener {
+            if (cantidad > 1) {
+                cantidad--
+            } else {
+                Toast.makeText(requireContext(), "¿Eliminar producto del carrito?", Toast.LENGTH_SHORT).show()
+
+
+            }
+            binding.etQuantity.setText(cantidad.toString())
+            actualizarPrecioTotal(producto, cantidad)
+            actualizarIcono(cantidad)
+        }
+
+        binding.etQuantity.setOnEditorActionListener { _, _, _ ->
+            val nuevoValor = binding.etQuantity.text.toString().toIntOrNull() ?: 1
+            cantidad = if (nuevoValor >= 1) nuevoValor else 1
+            binding.etQuantity.setText(cantidad.toString())
+            actualizarPrecioTotal(producto, cantidad)
+            actualizarIcono(cantidad)
+            true
+        }
+    }
+
+    private fun actualizarIcono(cantidad: Int) {
+        val icono = if (cantidad <= 1) R.drawable.icono_borrar_xml else R.drawable.icono_menos
+        binding.btnRestar.setIconResource(icono)
+    }
+
 
     private fun mostrarDescuento(producto: Producto) {
         if (producto.precioDescuento != "0") {
@@ -110,21 +207,46 @@ class FragmentVerYComprarProducto : Fragment() {
             binding.txtPrecio.apply {
                 text = "Precio: ${producto.precio}€"
                 paintFlags = paintFlags or android.graphics.Paint.STRIKE_THRU_TEXT_FLAG
-                setTypeface(typeface, android.graphics.Typeface.NORMAL)
+                visibility = View.VISIBLE
+            }
+
+            binding.txtPrecioDescuento.apply {
+                paintFlags = 0
+                visibility = View.VISIBLE
+            }
+            binding.txtEjemploDescuento.apply {
+                text = producto.ejemploDescuento
+                visibility = View.VISIBLE
+            }
+        } else {
+
+            binding.txtEjemploDescuento.visibility = View.GONE
+
+            binding.txtPrecio.apply {
+                paintFlags = 0
                 visibility = View.VISIBLE
             }
             binding.txtPrecioDescuento.visibility = View.VISIBLE
-            binding.txtEjemploDescuento.visibility = View.VISIBLE
+        }
+    }
 
-            binding.txtPrecioDescuento.text = "Precio: ${producto.precioDescuento}€"
-            binding.txtEjemploDescuento.text = producto.ejemploDescuento
+
+    private fun actualizarPrecioTotal(producto: Producto, cantidad: Int) {
+
+        val precioUnitario = (producto.precioDescuento.takeIf { it != "0" }
+            ?: producto.precio)
+            .toDoubleOrNull() ?: 0.0
+
+        val total = precioUnitario * cantidad
+
+        if (producto.precioDescuento != "0") {
+
+            binding.txtPrecioDescuento.text = "Total: %.2f€".format(total)
+
         } else {
 
-            binding.txtPrecio.visibility = View.VISIBLE
+            binding.txtPrecio.text = "Total: %.2f€".format(total)
             binding.txtPrecioDescuento.visibility = View.GONE
-            binding.txtEjemploDescuento.visibility = View.GONE
-
-            binding.txtPrecio.text = "Precio: ${producto.precio}€"
         }
     }
 
@@ -172,6 +294,41 @@ class FragmentVerYComprarProducto : Fragment() {
             }
         })
     }
+
+    private fun agregarProductoAlCarrito(idProducto: String, nombre: String, cantidad: Int, precio: Double) {
+        val idUsuario = FirebaseAuth.getInstance().currentUser?.uid ?: "sin identificar"
+
+        val refCarrito = FirebaseDatabase.getInstance().getReference("Carritos")
+            .child(idUsuario)
+            .child(idProducto)
+
+        refCarrito.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val cantidadExistente = snapshot.child("cantidad").getValue(Int::class.java) ?: 0
+                val nuevaCantidad = cantidadExistente + cantidad
+
+                val carritoMap = mapOf(
+                    "id_producto" to idProducto,
+                    "nombre" to nombre,
+                    "cantidad" to nuevaCantidad,
+                    "precio_unitario" to precio
+                )
+
+                refCarrito.setValue(carritoMap)
+                    .addOnSuccessListener {
+                        Toast.makeText(requireContext(), "Producto actualizado en el carrito", Toast.LENGTH_SHORT).show()
+                    }
+                    .addOnFailureListener {
+                        Toast.makeText(requireContext(), "Error al añadir al carrito", Toast.LENGTH_SHORT).show()
+                    }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(requireContext(), "Error al comprobar el carrito", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
     companion object {
         private const val ARG_PRODUCTO_ID = "producto_id"
 
