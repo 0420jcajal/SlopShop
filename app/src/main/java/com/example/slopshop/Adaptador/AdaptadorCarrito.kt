@@ -27,10 +27,10 @@ class AdaptadorCarrito(
         holder.binding.etQuantity.setText(item.cantidad.toString())
         holder.binding.tvPrecioProducto.text = String.format("%.2f €", item.precio_unitario)
 
-        // Cargar imagen desde Productos/{id_producto}/Imagenes Producto
+
         cargarPrimeraImagen(item.id_producto, holder)
 
-        // Listener sumar/restar
+
         holder.binding.btnSumar.setOnClickListener {
             val nuevaCantidad = item.cantidad + 1
             actualizarCantidadFirebase(item.id_producto, nuevaCantidad)
@@ -41,7 +41,6 @@ class AdaptadorCarrito(
             actualizarCantidadFirebase(item.id_producto, nuevaCantidad)
         }
 
-        // Listener eliminar (opcional)
         holder.binding.btnEliminar.setOnClickListener {
             eliminarDeFirebase(item.id_producto)
         }

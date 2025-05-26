@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.slopshop.Adaptador.AdaptadorCarrito
 import com.example.slopshop.Entidades.Carrito
+import com.example.slopshop.R
 import com.example.slopshop.databinding.FragmentCarritoUBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
@@ -37,10 +38,14 @@ class FragmentCarritoU : Fragment() {
             if (listaCarrito.isEmpty()) {
                 Toast.makeText(requireContext(), "El carrito está vacío", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
+            }else{
+
+                mostrarDialogoConfirmacion()
+
             }
 
-            // Aquí agregas la lógica para procesar el pedido con los productos en listaCarrito
-            Toast.makeText(requireContext(), "Pedido realizado con éxito", Toast.LENGTH_SHORT).show()
+
+
         }
 
         return binding.root
@@ -72,5 +77,41 @@ class FragmentCarritoU : Fragment() {
                 Toast.makeText(requireContext(), "Error cargando carrito", Toast.LENGTH_SHORT).show()
             }
         })
+    }
+
+    private fun mostrarDialogoConfirmacion() {
+        val builder = StringBuilder()
+
+        for (item in listaCarrito) {
+            builder.append("${item.nombre} x${item.cantidad}\n")
+        }
+
+        val total = listaCarrito.sumOf { it.precio_unitario * it.cantidad }
+
+        val mensaje = """
+        ${builder.toString()}
+        
+        TOTAL: %.2f €
+        
+        ¿Está seguro de continuar?
+        """.trimIndent().format(total)
+
+        val dialog = androidx.appcompat.app.AlertDialog.Builder(requireContext())
+            .setTitle("Confirmación de compra")
+            .setMessage(mensaje)
+            .setPositiveButton("Sí, continuar") { _, _ ->
+                requireActivity().supportFragmentManager.beginTransaction()
+                    .replace(R.id.navFragment, FragmentSeleccionarDireccion())
+                    .addToBackStack(null)
+                    .commit()
+            }
+            .setNegativeButton("Cancelar", null)
+            .create()
+
+        dialog.show()
+
+        dialog.findViewById<View>(android.R.id.message)?.let {
+            (it as? android.widget.TextView)?.textSize = 16f
+        }
     }
 }

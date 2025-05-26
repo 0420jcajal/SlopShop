@@ -64,11 +64,11 @@
             android:layout_marginStart="10dp"/>
 
         <Button
-            android:id="@+id/btnSiguiente"
+            android:id="@+id/btnNuevaDireccion"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Añadir Direccion"
+            android:text="Nueva Direccion"
             android:textColor="@android:color/white"
             android:backgroundTint="@color/verde_claro"
             android:layout_marginStart="40dp"

@@ -14,6 +14,9 @@ import android.widget.EditText
 import android.widget.Spinner
 import android.widget.Toast
 import com.example.slopshop.R
+import com.example.slopshop.Usuario.Utils.UbicacionesData
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 
 
 class FragmentAgregarDireccion : Fragment() {
@@ -27,17 +30,14 @@ class FragmentAgregarDireccion : Fragment() {
     private lateinit var btnAgregar: Button
 
 
-    private val paises = listOf("Seleccione país", "España", "México")
-    private val provincias = mapOf(
-        "España" to listOf("Seleccione provincia", "Madrid", "Barcelona"),
-        "México" to listOf("Seleccione provincia", "CDMX", "Guadalajara")
-    )
-    private val ciudades = mapOf(
-        "Madrid" to listOf("Seleccione ciudad", "Madrid Centro", "Alcobendas"),
-        "Barcelona" to listOf("Seleccione ciudad", "Badalona", "Hospitalet"),
-        "CDMX" to listOf("Seleccione ciudad", "Benito Juárez", "Coyoacán"),
-        "Guadalajara" to listOf("Seleccione ciudad", "Zapopan", "Tlaquepaque")
-    )
+    private lateinit var dataUbicaciones: UbicacionesData
+
+    private lateinit var paises: List<String>
+    private lateinit var provincias: Map<String, List<String>>
+    private lateinit var ciudades: Map<String, List<String>>
+
+    private val auth = FirebaseAuth.getInstance()
+    private val db = FirebaseDatabase.getInstance().getReference()
 
     @SuppressLint("MissingInflatedId")
     override fun onCreateView(
@@ -51,6 +51,12 @@ class FragmentAgregarDireccion : Fragment() {
         etCalle = view.findViewById(R.id.etCalle)
         etPiso = view.findViewById(R.id.etPiso)
         btnAgregar = view.findViewById(R.id.btnAgregarDireccion)
+
+        dataUbicaciones = UbicacionesData
+
+        paises = dataUbicaciones.paises
+        provincias = dataUbicaciones.provincias
+        ciudades = dataUbicaciones.ciudades
 
         cargarPaises()
 
@@ -87,6 +93,7 @@ class FragmentAgregarDireccion : Fragment() {
             val ciudad = spinnerCiudad.selectedItem.toString()
             val calle = etCalle.text.toString().trim()
             val piso = etPiso.text.toString().trim()
+            val uid = auth.currentUser?.uid
 
             if (pais == "Seleccione país" || provincia == "Seleccione provincia" || ciudad == "Seleccione ciudad") {
                 Toast.makeText(requireContext(), "Por favor seleccione todos los campos", Toast.LENGTH_SHORT).show()
@@ -97,9 +104,36 @@ class FragmentAgregarDireccion : Fragment() {
                 .setTitle("Confirmar dirección")
                 .setMessage("¿Agregar esta dirección?\n\n$calle, $piso\n$ciudad, $provincia, $pais")
                 .setPositiveButton("Sí") { _, _ ->
-                    Toast.makeText(requireContext(), "Se agregó correctamente la dirección", Toast.LENGTH_SHORT).show()
+                    val direccionRef = db.child("Direcciones").push()
+                    val direccionId = direccionRef.key ?: System.currentTimeMillis().toString()
 
-                    //TODO NAVEGAR VUELTA
+                    val direccionData = mapOf(
+                        "id" to direccionId,
+                        "uidUsuario" to uid,
+                        "pais" to pais,
+                        "provincia" to provincia,
+                        "ciudad" to ciudad,
+                        "calle" to calle,
+                        "piso" to piso,
+                        "timestamp" to System.currentTimeMillis()
+                    )
+
+                    direccionRef.setValue(direccionData)
+                        .addOnSuccessListener {
+
+                            Toast.makeText(requireContext(), "Dirección guardada correctamente", Toast.LENGTH_SHORT).show()
+
+                            requireActivity().supportFragmentManager.beginTransaction()
+                                .replace(R.id.navFragment, FragmentCarritoU())
+                                .addToBackStack(null)
+                                .commit()
+                            //TODO
+
+
+                        }
+                        .addOnFailureListener { e ->
+                            Toast.makeText(requireContext(), "Error al guardar dirección: ${e.message}", Toast.LENGTH_LONG).show()
+                        }
                 }
                 .setNegativeButton("No", null)
                 .show()
