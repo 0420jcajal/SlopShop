@@ -88,13 +88,11 @@ class FragmentAgregarDireccion : Fragment() {
             val calle = etCalle.text.toString().trim()
             val piso = etPiso.text.toString().trim()
 
-            // Validación básica
             if (pais == "Seleccione país" || provincia == "Seleccione provincia" || ciudad == "Seleccione ciudad") {
                 Toast.makeText(requireContext(), "Por favor seleccione todos los campos", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            // Diálogo de confirmación
             AlertDialog.Builder(requireContext())
                 .setTitle("Confirmar dirección")
                 .setMessage("¿Agregar esta dirección?\n\n$calle, $piso\n$ciudad, $provincia, $pais")
