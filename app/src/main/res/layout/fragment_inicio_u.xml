@@ -19,8 +19,11 @@
         app:contentInsetEnd="0dp"
         app:contentInsetStart="0dp"
         app:fabCradleMargin="10dp"
-        app:fabCradleRoundedCornerRadius="20dp">
-        
+        app:fabCradleRoundedCornerRadius="20dp"
+        app:fabAlignmentMode="center">
+
+
+
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavigation"
             android:layout_width="match_parent"
@@ -31,5 +34,20 @@
             app:menu="@menu/bottom_nav_bar_usuario_menu"/>
 
     </com.google.android.material.bottomappbar.BottomAppBar>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addFab"
+        android:backgroundTint="@color/naranja_principal"
+        android:src="@drawable/icono_carrito"
+        android:layout_marginBottom="25dp"
+        app:fabCustomSize="40sp"
+        app:layout_anchor="@id/bottomAppBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:tint="@color/black"
+        android:scaleX="1.5"
+        android:scaleY="1.5"
+
+        />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

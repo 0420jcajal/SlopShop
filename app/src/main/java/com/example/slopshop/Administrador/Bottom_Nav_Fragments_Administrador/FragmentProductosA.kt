@@ -49,10 +49,14 @@ class FragmentProductosA : Fragment() {
             RecyclerView.OnChildAttachStateChangeListener {
             override fun onChildViewAttachedToWindow(view: View) {
                 view.setOnClickListener {
+
                     val holder = binding.productosRV.getChildViewHolder(view)
                     val position = holder.adapterPosition
+
                     if (position != RecyclerView.NO_POSITION) {
-                        val productoSeleccionado = listaProductos[position]
+
+                        val indexReal = currentPage * tamañoPagina + position
+                        val productoSeleccionado = listaProductos[indexReal]
 
                         parentFragmentManager.beginTransaction()
                             .replace(
@@ -124,8 +128,7 @@ class FragmentProductosA : Fragment() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-                //TODO LOG
+
             }
 
         })

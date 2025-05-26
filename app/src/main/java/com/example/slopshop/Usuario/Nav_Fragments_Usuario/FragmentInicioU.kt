@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import com.example.slopshop.R
 import com.example.slopshop.Usuario.Bottom_Nav_Fragments_Usuario.FragmentCatalogoU
 import com.example.slopshop.Usuario.Bottom_Nav_Fragments_Usuario.FragmentPedidosU
+import com.example.slopshop.Usuario.Carrito.FragmentCarritoU
 import com.example.slopshop.databinding.FragmentInicioUBinding
 
 
@@ -31,6 +32,14 @@ class FragmentInicioU : Fragment() {
 
         cambiarFragment(FragmentCatalogoU())
         binding.bottomNavigation.selectedItemId = R.id.opcionCatalogo_u
+
+        binding.addFab.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.navFragment, FragmentCarritoU())
+                .addToBackStack(null)
+                .commit()
+        }
+
 
         return binding.root
     }

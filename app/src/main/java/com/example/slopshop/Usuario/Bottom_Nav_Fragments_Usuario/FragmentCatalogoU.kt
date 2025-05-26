@@ -30,6 +30,8 @@ class FragmentCatalogoU : Fragment() {
     private lateinit var adaptadorProducto: AdaptadorProducto
 
 
+
+
     private var currentPage = 0
     private var tamañoPagina = 4
 
@@ -54,10 +56,14 @@ class FragmentCatalogoU : Fragment() {
             RecyclerView.OnChildAttachStateChangeListener {
             override fun onChildViewAttachedToWindow(view: View) {
                 view.setOnClickListener {
+
                     val holder = binding.catalogoProductosRV.getChildViewHolder(view)
                     val position = holder.adapterPosition
+
                     if (position != RecyclerView.NO_POSITION) {
-                        val productoSeleccionado = listaProductos[position]
+
+                        val indexReal = currentPage * tamañoPagina + position
+                        val productoSeleccionado = listaProductos[indexReal]
 
                         parentFragmentManager.beginTransaction()
                             .replace(

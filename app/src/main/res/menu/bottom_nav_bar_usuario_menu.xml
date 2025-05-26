@@ -6,6 +6,12 @@
         android:icon="@drawable/icono_catalogo"/>
 
     <item
+        android:id="@+id/opcionIrAlCarrito"
+        android:title=""
+        android:enabled="false"
+        />
+
+    <item
         android:id="@+id/opcionMisPedidos_u"
         android:title="@string/opcionMisPedidos"
         android:icon="@drawable/icono_pedidos"/>

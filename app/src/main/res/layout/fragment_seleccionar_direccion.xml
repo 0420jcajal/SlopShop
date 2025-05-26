@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="12dp">
+
+    <TextView
+        android:id="@+id/tvTituloSeleccionDireccion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Seleccione dirección para facturar:"
+        android:textSize="20sp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="12dp"
+        android:paddingBottom="15dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerDirecciones"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_below="@id/tvTituloSeleccionDireccion"
+        android:layout_above="@+id/layoutBotones"
+        tools:listitem="@layout/item_direccion"
+        android:scrollbars="vertical" />
+
+    <TextView
+        android:id="@+id/tvSinDirecciones"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No hay direcciones aun, prueba con añadir una nueva"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/layoutBotones"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="4dp"
+        >
+
+        <Button
+            android:id="@+id/btnAtras"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginTop="6dp"
+            android:text="Cancelar"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@color/rojo"
+            android:layout_marginEnd="40dp"
+            android:layout_marginStart="10dp"/>
+
+        <Button
+            android:id="@+id/btnSiguiente"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Añadir Direccion"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@color/verde_claro"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="10dp"/>
+
+    </LinearLayout>
+
+</RelativeLayout>
