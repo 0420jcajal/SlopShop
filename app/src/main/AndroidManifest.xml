@@ -27,7 +27,8 @@
             android:exported="false" />
         <activity
             android:name=".SeleccionarTipoActivity"
-            android:exported="false" />
+            android:exported="false"
+            />
         <activity
             android:name=".Usuario.LoginUsuarioActivity"
             android:exported="false" />

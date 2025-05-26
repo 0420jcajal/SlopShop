@@ -88,13 +88,12 @@ class FragmentCarritoU : Fragment() {
 
         val total = listaCarrito.sumOf { it.precio_unitario * it.cantidad }
 
-        val mensaje = """
-        ${builder.toString()}
-        
-        TOTAL: %.2f €
-        
-        ¿Está seguro de continuar?
-        """.trimIndent().format(total)
+        val mensaje = """${builder.toString()}
+            
+TOTAL: %.2f €
+                         
+                         
+¿Está seguro de continuar?""".trimIndent().format(total)
 
         val dialog = androidx.appcompat.app.AlertDialog.Builder(requireContext())
             .setTitle("Confirmación de compra")

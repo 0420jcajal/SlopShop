@@ -36,7 +36,9 @@
         android:textSize="18sp"
         android:textColor="@color/black"
         android:layout_centerInParent="true"
-        android:visibility="gone" />
+        android:visibility="gone"
+        android:gravity="center"
+        android:layout_margin="10dp"/>
 
     <LinearLayout
         android:id="@+id/layoutBotones"

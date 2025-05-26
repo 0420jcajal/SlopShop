@@ -85,6 +85,15 @@ class FragmentSeleccionarDireccion : Fragment() {
                     }
                 }
                 adaptadorDirecciones.notifyDataSetChanged()
+
+                if (listaDirecciones.isEmpty()) {
+                    binding.recyclerDirecciones.visibility = View.GONE
+                    binding.tvSinDirecciones.visibility = View.VISIBLE
+                } else {
+                    binding.recyclerDirecciones.visibility = View.VISIBLE
+                    binding.tvSinDirecciones.visibility = View.GONE
+                }
+
             }
 
             override fun onCancelled(error: DatabaseError) {
