@@ -79,6 +79,10 @@ class MainActivityUsuario : AppCompatActivity(), NavigationView.OnNavigationItem
             R.id.opcionPerfil_u->{
                 cambiarFragment(FragmentMiPerfilU())
             }
+            R.id.opcionIrAlCarrito->{
+                cerrarSession()
+            }
+
             R.id.opcionCerrarSesion_u->{
                 cerrarSession()
             }

@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:padding="16dp">
 
-    <!-- 1) Título -->
+
     <TextView
         android:id="@+id/tvMisPedidos"
         android:layout_width="0dp"
