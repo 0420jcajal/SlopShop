@@ -40,7 +40,7 @@ class FragmentSeleccionarDireccion : Fragment() {
             onItemClick = { direccion, _ ->
                 AlertDialog.Builder(requireContext())
                     .setTitle("Confirmar dirección")
-                    .setMessage("¿Deseas usar esta dirección para la compra?\n\n${direccion.calle}\n\n${direccion.pais}, ${direccion.provincia}\n\n${direccion.ciudad}\n\n\nSe procedera con la compra")
+                    .setMessage("¿Deseas usar esta dirección para la compra?\n\n${direccion.calle}\n${direccion.pais}, ${direccion.provincia}\n\n${direccion.ciudad}\n\n\nSe procedera con la compra\n")
                     .setPositiveButton("Sí") { _, _ ->
 
                         realizarPedido(direccion)
@@ -100,30 +100,25 @@ class FragmentSeleccionarDireccion : Fragment() {
 
                 val detallesRef = FirebaseDatabase.getInstance().getReference("PedidosDetalle")
 
-                val tareas = mutableListOf<DatabaseReference>()
-
                 for (productoSnap in snapshot.children) {
                     val producto = productoSnap.value as? Map<*, *> ?: continue
                     val detalleRef = detallesRef.push()
 
-                    val detalle = mapOf(
-                        "id_pedido" to pedidoId,
-                        "id_producto" to (producto["id_producto"] ?: ""),
-                        "cantidad" to (producto["cantidad"] ?: 1)
-                    )
+                    val detalleMap = HashMap<String, Any>()
+                    detalleMap["id_pedido"] = pedidoId
+                    detalleMap["id_producto"] = producto["id_producto"] ?: ""
+                    detalleMap["cantidad"] = producto["cantidad"] ?: 1
 
-                    detalleRef.setValue(detalle)
-                    tareas.add(detalleRef)
+                    detalleRef.setValue(detalleMap)
                 }
 
-                val pedidoData = mapOf(
-                    "id_cliente" to uid,
-                    "estado" to "En proceso",
-                    "direccion" to "${direccion.calle}, ${direccion.ciudad}, ${direccion.provincia}",
-                    "tiempoRegistro" to ServerValue.TIMESTAMP
-                )
+                val pedidoMap = HashMap<String, Any>()
+                pedidoMap["id_cliente"] = uid
+                pedidoMap["estado"] = "En proceso"
+                pedidoMap["direccion"] = "${direccion.calle}, ${direccion.ciudad}, ${direccion.provincia}"
+                pedidoMap["tiempoRegistro"] = ServerValue.TIMESTAMP
 
-                pedidoRef.setValue(pedidoData).addOnSuccessListener {
+                pedidoRef.setValue(pedidoMap).addOnSuccessListener {
                     carritoRef.removeValue().addOnSuccessListener {
                         progressDialog.dismiss()
                         Toast.makeText(requireContext(), "Producto comprado con éxito", Toast.LENGTH_SHORT).show()
@@ -131,7 +126,6 @@ class FragmentSeleccionarDireccion : Fragment() {
                         requireActivity().supportFragmentManager.beginTransaction()
                             .replace(R.id.navFragment, FragmentInicioU())
                             .commit()
-
                     }.addOnFailureListener {
                         progressDialog.dismiss()
                         Toast.makeText(requireContext(), "Error al vaciar el carrito", Toast.LENGTH_SHORT).show()

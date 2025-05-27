@@ -12,7 +12,7 @@ import com.example.slopshop.databinding.ItemPedidoBinding
 class AdaptadorPedido(
     private val context: Context,
     private val listaPedidos: List<Pedido>,
-    private val onClick: (Pedido) -> Unit
+    private val onClick: (Pedido) -> Unit ={}
 ) : RecyclerView.Adapter<AdaptadorPedido.HolderPedido>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HolderPedido {

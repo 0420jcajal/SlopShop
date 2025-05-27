@@ -18,6 +18,7 @@ import com.example.slopshop.Entidades.Imagen
 
 import com.example.slopshop.databinding.ActivityAgregarProductoBinding
 import com.github.dhaval2404.imagepicker.ImagePicker
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -84,6 +85,8 @@ class AgregarProductoActivity : AppCompatActivity() {
     private var tieneDescuentoProducto = false
     private var precioDescuentoProducto = ""
     private var ejemploDescuento= ""
+
+
     private fun validarInfo() {
         nombreProducto= binding.etNombreProducto.text.toString().trim()
         descripcionProducto = binding.etDescripcionProducto.text.toString().trim()
@@ -146,6 +149,8 @@ class AgregarProductoActivity : AppCompatActivity() {
         hashMap["precio"]= "${precioProducto}"
         hashMap["precioDescuento"]= "${precioDescuentoProducto}"
         hashMap["ejemploDescuento"]= "${ejemploDescuento}"
+        hashMap["uidVendedor"] = FirebaseAuth.getInstance().currentUser?.uid ?: ""
+
 
         ref.child(keyFireBaseId!!)
             .setValue(hashMap)
