@@ -1,17 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragmentPedidosU"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Usuario.Bottom_Nav_Fragments_Usuario.FragmentPedidosU">
+    android:padding="16dp">
 
-    <!-- TODO: Update blank fragment layout -->
+    <!-- 1) Título -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Pedidos"
-        android:gravity="center"
-        android:textSize="30sp"
+        android:id="@+id/tvMisPedidos"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Mis pedidos"
+        android:textSize="28sp"
         android:textStyle="bold"
-        android:fontFamily="@font/handwrite"/>
-</FrameLayout>
+        android:fontFamily="@font/handwrite"
+        android:gravity="center"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <LinearLayout
+        android:id="@+id/layoutBusqueda"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="12dp"
+        app:layout_constraintTop_toBottomOf="@id/tvMisPedidos"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <EditText
+            android:id="@+id/etBuscarPedido"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Buscar pedido..."
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:padding="12dp"
+             />
+
+        <Button
+            android:id="@+id/btnFiltrar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Filtrar"
+            android:layout_marginStart="8dp"/>
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/tvUltimosMeses"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Últimos pedidos"
+        android:textSize="14sp"
+        android:textColor="@android:color/darker_gray"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/layoutBusqueda"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerPedidos"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="12dp"
+        android:clipToPadding="false"
+        app:layout_constraintTop_toBottomOf="@id/tvUltimosMeses"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:listitem="@layout/item_pedido"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

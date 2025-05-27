@@ -47,7 +47,7 @@ class AdaptadorComentario(
             }
         })
 
-        // TODO: Carga imagen de usuario con Glide o Picasso si tienes URL en Comentario
+        // TODO Carga imagen (futuro)
 
     }
 

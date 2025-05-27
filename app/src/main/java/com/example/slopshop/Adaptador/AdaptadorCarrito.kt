@@ -1,5 +1,6 @@
 package com.example.slopshop.Adaptador
 
+import android.app.AlertDialog
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.slopshop.Entidades.Carrito
+import com.example.slopshop.R
 import com.example.slopshop.databinding.ItemCarritoProductoBinding
 import com.google.firebase.database.*
 
@@ -27,6 +29,8 @@ class AdaptadorCarrito(
         holder.binding.etQuantity.setText(item.cantidad.toString())
         holder.binding.tvPrecioProducto.text = String.format("%.2f €", item.precio_unitario)
 
+        actualizarIcono(holder,item.cantidad)
+
 
         cargarPrimeraImagen(item.id_producto, holder)
 
@@ -34,15 +38,26 @@ class AdaptadorCarrito(
         holder.binding.btnSumar.setOnClickListener {
             val nuevaCantidad = item.cantidad + 1
             actualizarCantidadFirebase(item.id_producto, nuevaCantidad)
+            actualizarIcono(holder, nuevaCantidad)
         }
 
         holder.binding.btnRestar.setOnClickListener {
             val nuevaCantidad = if (item.cantidad > 1) item.cantidad - 1 else 1
             actualizarCantidadFirebase(item.id_producto, nuevaCantidad)
+            actualizarIcono(holder, nuevaCantidad)
         }
 
         holder.binding.btnEliminar.setOnClickListener {
-            eliminarDeFirebase(item.id_producto)
+            holder.binding.btnEliminar.setOnClickListener {
+                AlertDialog.Builder(context)
+                    .setTitle("Eliminar producto")
+                    .setMessage("¿Estás seguro de que deseas eliminar \"${item.nombre}\" del carrito?")
+                    .setPositiveButton("Sí") { _, _ ->
+                        eliminarDeFirebase(item.id_producto)
+                    }
+                    .setNegativeButton("No", null)
+                    .show()
+            }
         }
     }
 
@@ -57,6 +72,14 @@ class AdaptadorCarrito(
     private fun eliminarDeFirebase(idProducto: String) {
         val uid = getUidActual()
         FirebaseDatabase.getInstance().getReference("Carritos/$uid/$idProducto").removeValue()
+    }
+
+    private fun actualizarIcono(holder: HolderCarrito, cantidad: Int) {
+        val icono = if (cantidad <= 1)
+            R.drawable.icono_borrar_xml
+        else
+            R.drawable.icono_menos
+        holder.binding.btnRestar.setIconResource(icono)
     }
 
     private fun getUidActual(): String {

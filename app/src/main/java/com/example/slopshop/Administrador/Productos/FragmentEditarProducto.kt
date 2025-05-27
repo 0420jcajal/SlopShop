@@ -11,7 +11,11 @@ import androidx.appcompat.widget.SwitchCompat
 import com.bumptech.glide.Glide
 import com.example.slopshop.R
 import com.google.android.material.button.MaterialButton
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 class FragmentEditarProducto : Fragment() {
 
@@ -142,21 +146,49 @@ class FragmentEditarProducto : Fragment() {
                 }
             }
 
+
+
         }.addOnFailureListener {
             Toast.makeText(context, "Error al acceder a los datos", Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun eliminarProductoDeBaseDeDatos(dbRef: com.google.firebase.database.DatabaseReference) {
+    private fun eliminarProductoDeBaseDeDatos(dbRef: DatabaseReference) {
+
         dbRef.removeValue().addOnSuccessListener {
 
-            Toast.makeText(context, "Producto eliminado correctamente", Toast.LENGTH_SHORT).show()
+            val refCarritos = FirebaseDatabase.getInstance().getReference("Carritos")
+            refCarritos.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    for (userSnap in snapshot.children) {
+                        val uid = userSnap.key ?: continue
 
-            val fragmentProductos = com.example.slopshop.Administrador.Bottom_Nav_Fragments_Administrador.FragmentProductosA()
+                        if (userSnap.hasChild(productoId)) {
 
-            requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.navFragment, fragmentProductos)
-                .commit()
+                            refCarritos
+                                .child(uid)
+                                .child(productoId)
+                                .removeValue()
+                        }
+                    }
+                    Toast.makeText(context, "Producto y carritos limpiados", Toast.LENGTH_SHORT).show()
+                    val fragmentProductos =
+                        com.example.slopshop.Administrador.Bottom_Nav_Fragments_Administrador.FragmentProductosA()
+                    requireActivity().supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.navFragment, fragmentProductos)
+                        .commit()
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+
+                    Toast.makeText(
+                        context,
+                        "Producto borrado, pero error limpiando carritos: ${error.message}",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            })
 
         }.addOnFailureListener {
             Toast.makeText(context, "Error al eliminar el producto", Toast.LENGTH_SHORT).show()

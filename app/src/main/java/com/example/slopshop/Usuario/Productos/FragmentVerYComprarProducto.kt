@@ -163,13 +163,13 @@ class FragmentVerYComprarProducto : Fragment() {
     private fun cantidadProducto(producto: Producto) {
         var cantidad = 1
         actualizarPrecioTotal(producto, cantidad)
-        actualizarIcono(cantidad)
+
 
         binding.btnSumar.setOnClickListener {
             cantidad++
             binding.etQuantity.setText(cantidad.toString())
             actualizarPrecioTotal(producto, cantidad)
-            actualizarIcono(cantidad)
+
         }
 
         binding.btnRestar.setOnClickListener {
@@ -182,7 +182,7 @@ class FragmentVerYComprarProducto : Fragment() {
             }
             binding.etQuantity.setText(cantidad.toString())
             actualizarPrecioTotal(producto, cantidad)
-            actualizarIcono(cantidad)
+
         }
 
         binding.etQuantity.setOnEditorActionListener { _, _, _ ->
@@ -190,15 +190,12 @@ class FragmentVerYComprarProducto : Fragment() {
             cantidad = if (nuevoValor >= 1) nuevoValor else 1
             binding.etQuantity.setText(cantidad.toString())
             actualizarPrecioTotal(producto, cantidad)
-            actualizarIcono(cantidad)
+
             true
         }
     }
 
-    private fun actualizarIcono(cantidad: Int) {
-        val icono = if (cantidad <= 1) R.drawable.icono_borrar_xml else R.drawable.icono_menos
-        binding.btnRestar.setIconResource(icono)
-    }
+
 
 
     private fun mostrarDescuento(producto: Producto) {

@@ -1,6 +1,11 @@
 package com.example.slopshop.Usuario.Carrito
 
+import android.app.AlertDialog
+import android.app.ProgressDialog
+import android.app.ProgressDialog.show
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.slopshop.Adaptador.AdaptadorDirecciones
 import com.example.slopshop.Entidades.Direccion
 import com.example.slopshop.R
+import com.example.slopshop.Usuario.Nav_Fragments_Usuario.FragmentInicioU
 import com.example.slopshop.databinding.FragmentSeleccionarDireccionBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
@@ -32,9 +38,16 @@ class FragmentSeleccionarDireccion : Fragment() {
             requireContext(),
             listaDirecciones,
             onItemClick = { direccion, _ ->
-                // Acción al pulsar dirección → por ejemplo: ir a pantalla de pago
-                Toast.makeText(requireContext(), "Seleccionaste: ${direccion.calle}", Toast.LENGTH_SHORT).show()
-                // TODO: Continuar con proceso de compra
+                AlertDialog.Builder(requireContext())
+                    .setTitle("Confirmar dirección")
+                    .setMessage("¿Deseas usar esta dirección para la compra?\n\n${direccion.calle}\n\n${direccion.pais}, ${direccion.provincia}\n\n${direccion.ciudad}\n\n\nSe procedera con la compra")
+                    .setPositiveButton("Sí") { _, _ ->
+
+                        realizarPedido(direccion)
+
+                    }
+                    .setNegativeButton("No", null)
+                    .show()
             },
             onEliminarClick = { direccion, position ->
                 eliminarDireccionFirebase(direccion.id)
@@ -64,6 +77,78 @@ class FragmentSeleccionarDireccion : Fragment() {
 
         return binding.root
     }
+
+    private fun realizarPedido(direccion: Direccion) {
+        val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return
+        val carritoRef = FirebaseDatabase.getInstance().getReference("Carritos").child(uid)
+        val pedidoRef = FirebaseDatabase.getInstance().getReference("Pedidos").push()
+        val pedidoId = pedidoRef.key ?: return
+
+        val progressDialog = ProgressDialog(requireContext()).apply {
+            setMessage("Comprando...")
+            setCancelable(false)
+            show()
+        }
+
+        carritoRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (!snapshot.exists()) {
+                    progressDialog.dismiss()
+                    Toast.makeText(requireContext(), "El carrito está vacío", Toast.LENGTH_SHORT).show()
+                    return
+                }
+
+                val detallesRef = FirebaseDatabase.getInstance().getReference("PedidosDetalle")
+
+                val tareas = mutableListOf<DatabaseReference>()
+
+                for (productoSnap in snapshot.children) {
+                    val producto = productoSnap.value as? Map<*, *> ?: continue
+                    val detalleRef = detallesRef.push()
+
+                    val detalle = mapOf(
+                        "id_pedido" to pedidoId,
+                        "id_producto" to (producto["id_producto"] ?: ""),
+                        "cantidad" to (producto["cantidad"] ?: 1)
+                    )
+
+                    detalleRef.setValue(detalle)
+                    tareas.add(detalleRef)
+                }
+
+                val pedidoData = mapOf(
+                    "id_cliente" to uid,
+                    "estado" to "En proceso",
+                    "direccion" to "${direccion.calle}, ${direccion.ciudad}, ${direccion.provincia}",
+                    "tiempoRegistro" to ServerValue.TIMESTAMP
+                )
+
+                pedidoRef.setValue(pedidoData).addOnSuccessListener {
+                    carritoRef.removeValue().addOnSuccessListener {
+                        progressDialog.dismiss()
+                        Toast.makeText(requireContext(), "Producto comprado con éxito", Toast.LENGTH_SHORT).show()
+
+                        requireActivity().supportFragmentManager.beginTransaction()
+                            .replace(R.id.navFragment, FragmentInicioU())
+                            .commit()
+
+                    }.addOnFailureListener {
+                        progressDialog.dismiss()
+                        Toast.makeText(requireContext(), "Error al vaciar el carrito", Toast.LENGTH_SHORT).show()
+                    }
+                }.addOnFailureListener {
+                    progressDialog.dismiss()
+                    Toast.makeText(requireContext(), "Error al registrar el pedido", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                progressDialog.dismiss()
+                Toast.makeText(requireContext(), "Error al leer el carrito", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
 
     private fun cargarDirecciones() {
         if (uid.isEmpty()) {

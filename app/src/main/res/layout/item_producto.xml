@@ -51,9 +51,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:maxLines="2"
-            android:layout_gravity="bottom"
+            android:layout_gravity="end"
             android:textStyle="bold"
-            android:textSize="18sp"/>
+            android:textSize="18sp"
+            />
 
         <TextView
             android:textStyle="bold"
@@ -65,7 +66,8 @@
             android:layout_marginTop="5dp"
             android:maxLines="1"
             android:textColor="#43A047"
-            android:textSize="18sp"/>
+            android:textSize="18sp"
+            android:layout_gravity="end"/>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
