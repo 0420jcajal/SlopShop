@@ -38,7 +38,7 @@
     <string name="txtAgregarProductos">Agregar Productos</string>
     <string name="NombreP">Nombre del producto</string>
     <string name="Descripcion">Descripción</string>
-    <string name="Categoria">Categoría</string>
+    <string name="Categoria">Añadir Categoría</string>
     <string name="Precio">Precio</string>
     <string name="Descuento">Descuento</string>
     <string name="PrecioConDescuento">Precio con descuento aplicado</string>

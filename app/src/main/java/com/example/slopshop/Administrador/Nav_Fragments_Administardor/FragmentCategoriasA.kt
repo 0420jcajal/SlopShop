@@ -20,6 +20,7 @@ import com.example.slopshop.databinding.FragmentCategoriasABinding
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
@@ -72,54 +73,61 @@ class FragmentCategoriasA : Fragment() {
         binding.btnAgregarCategoria.setOnClickListener{
             validarCategoria()
         }
+
+
+
         return binding.root
     }
 
     @SuppressLint("NotifyDataSetChanged")
     private fun eliminarCategoria(categoria: Categoria) {
-
         val builder = android.app.AlertDialog.Builder(mContext)
         builder.setTitle("Eliminar categoría")
         builder.setMessage("¿Estás seguro de que quieres eliminar la categoria \"${categoria.categoria}\"?")
 
-        builder.setPositiveButton("Sí"){dialog,_ ->
-
+        builder.setPositiveButton("Sí") { dialog, _ ->
             val ref = FirebaseDatabase.getInstance().getReference("Categorías")
-            val storageRef = FirebaseStorage.getInstance().getReferenceFromUrl(categoria.imagenUrl)
-
             progressDialog.setMessage("Eliminando categoría...")
             progressDialog.show()
 
-            storageRef.delete()
-                .addOnSuccessListener {
-                    ref.child(categoria.id).removeValue()
-                        .addOnSuccessListener {
-                            progressDialog.dismiss()
-                            Toast.makeText(mContext, "La categoría \"${categoria.categoria}\" ha eliminada correctamente.", Toast.LENGTH_SHORT).show()
-                            listaCategorias.remove(categoria)
-                            adaptadorCategoria.notifyDataSetChanged()
-                            setIds.remove(categoria.id)
+            if (!categoria.imagenUrl.isNullOrEmpty() && categoria.imagenUrl.startsWith("https://")) {
+                val storageRef = FirebaseStorage.getInstance().getReferenceFromUrl(categoria.imagenUrl)
 
-                        }
-                        .addOnFailureListener {e ->
-                            progressDialog.dismiss()
-                            Toast.makeText(mContext, "BD: ${e.message}.", Toast.LENGTH_SHORT).show()
-                            //TODO
-                        }
-                }
-                .addOnFailureListener {e ->
-                    progressDialog.dismiss()
-                    Toast.makeText(mContext, "Storage: ${e.message}.", Toast.LENGTH_SHORT).show()
-                    //TODO
-                }
+                storageRef.delete()
+                    .addOnSuccessListener {
+                        eliminarCategoriaDeBD(ref, categoria)
+                    }
+                    .addOnFailureListener { e ->
+                        progressDialog.dismiss()
+                        Toast.makeText(mContext, "Error al eliminar imagen: ${e.message}", Toast.LENGTH_SHORT).show()
+                    }
+            } else {
+                // Si no hay imagen, solo borra la categoría
+                eliminarCategoriaDeBD(ref, categoria)
+            }
         }
-        builder.setNegativeButton("Cancelar"){dialog, _ ->
+
+        builder.setNegativeButton("Cancelar") { dialog, _ ->
             dialog.dismiss()
         }
 
         builder.create().show()
     }
 
+    private fun eliminarCategoriaDeBD(ref: DatabaseReference, categoria: Categoria) {
+        ref.child(categoria.id).removeValue()
+            .addOnSuccessListener {
+                progressDialog.dismiss()
+                Toast.makeText(mContext, "La categoría \"${categoria.categoria}\" ha sido eliminada correctamente.", Toast.LENGTH_SHORT).show()
+                listaCategorias.remove(categoria)
+                adaptadorCategoria.notifyDataSetChanged()
+                setIds.remove(categoria.id)
+            }
+            .addOnFailureListener { e ->
+                progressDialog.dismiss()
+                Toast.makeText(mContext, "Error al eliminar de BD: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+    }
     private fun cargarCategoriasFireBase() {
         val ref = FirebaseDatabase.getInstance().getReference("Categorías")
 
@@ -188,11 +196,7 @@ class FragmentCategoriasA : Fragment() {
             .addOnSuccessListener {
 
                 subirImagenBD(keyId)
-                /*
-                progressDialog.dismiss()
-                Toast.makeText(context, "La categoría se ha agregado correctamente", Toast.LENGTH_SHORT).show()
-                binding.etCategoria.setText("")
-                 */
+
             }
             .addOnFailureListener {e->
                 progressDialog.dismiss()

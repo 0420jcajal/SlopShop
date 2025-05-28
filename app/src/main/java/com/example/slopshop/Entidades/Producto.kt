@@ -12,6 +12,10 @@ class Producto : Serializable{
     var precioDescuento : String = ""
     var ejemploDescuento : String = ""
     var imagenes: ArrayList<String>? = null
+    var borrado: Boolean = false
+    var mediaPuntuacion: Float = 0f
+    var uidUsuario : String = ""
+
 
     constructor()
     constructor(
@@ -22,7 +26,8 @@ class Producto : Serializable{
         precio: String,
         precioDescuento: String,
         ejemploDescuento: String,
-        imagenes: ArrayList<String>? = null
+        imagenes: ArrayList<String>? = null,
+        uidUsuario : String
     ) {
         this.id = id
         this.nombre = nombre
@@ -32,5 +37,6 @@ class Producto : Serializable{
         this.precioDescuento = precioDescuento
         this.ejemploDescuento = ejemploDescuento
         this.imagenes = imagenes
+        this.uidUsuario=uidUsuario
     }
 }

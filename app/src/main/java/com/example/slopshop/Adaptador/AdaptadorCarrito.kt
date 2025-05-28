@@ -27,7 +27,7 @@ class AdaptadorCarrito(
 
         holder.binding.nombreProducto.text = item.nombre
         holder.binding.etQuantity.setText(item.cantidad.toString())
-        holder.binding.tvPrecioProducto.text = String.format("%.2f €", item.precio_unitario)
+        holder.binding.tvPrecioProducto.text = String.format("%.2f €/Ud", item.precio_unitario)
 
         actualizarIcono(holder,item.cantidad)
 

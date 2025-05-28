@@ -46,7 +46,7 @@ class AdaptadorPedido(
             pedido.estado
         }
 
-        holder.binding.tvPrecioProducto.setOnClickListener {
+        holder.binding.root.setOnClickListener {
             onClick(pedido)
         }
     }

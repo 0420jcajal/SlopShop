@@ -4,7 +4,9 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.slopshop.Entidades.Categoria
+import com.example.slopshop.R
 import com.example.slopshop.databinding.ItemCategoriaABinding
 
 class AdaptadorCategoria(
@@ -23,6 +25,17 @@ class AdaptadorCategoria(
     override fun onBindViewHolder(holder: HolderCategoria, position: Int) {
         val categoria = listaCategorias[position]
         holder.binding.nombreCategoriaA.text = categoria.categoria
+
+        if (categoria.imagenUrl.isNotEmpty()) {
+            Glide.with(context)
+                .load(categoria.imagenUrl)
+                .placeholder(R.drawable.icono_agregar_producto)
+                .error(R.drawable.icono_agregar_producto)
+                .into(holder.binding.imagenCategoria)
+        } else {
+            holder.binding.imagenCategoria.setImageResource(R.drawable.icono_agregar_producto)
+        }
+
 
         holder.binding.eliminarCategoria.setOnClickListener{
             onEliminarClick(categoria)

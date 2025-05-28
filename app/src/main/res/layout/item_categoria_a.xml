@@ -15,6 +15,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <ImageView
+            android:id="@+id/imagenCategoria"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="10dp"
+            android:scaleType="centerCrop"
+            android:background="@drawable/custom_image_view"
+            android:clipToOutline="true"
+            android:src="@drawable/ic_categorias"
+            />
+
+
         <TextView
             android:id="@+id/nombreCategoriaA"
             android:text="@string/nombreCategoria"
@@ -28,7 +40,9 @@
             android:id="@+id/eliminarCategoria"
             android:src="@drawable/icono_borrar_xml"
             android:layout_width="40dp"
-            android:layout_height="40dp"/>
+            android:layout_height="40dp"
+            android:backgroundTint="@color/white"
+            android:layout_gravity="center_vertical"/>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

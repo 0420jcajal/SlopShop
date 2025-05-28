@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.slopshop.Adaptador.AdaptadorPedido
+import com.example.slopshop.Administrador.Pedidos.FragmentPedidosDetalleA
 import com.example.slopshop.Entidades.Pedido
 import com.example.slopshop.R
 import com.google.firebase.auth.FirebaseAuth
@@ -40,7 +41,18 @@ class FragmentPedidosA : Fragment() {
 
         listaFull = mutableListOf()
         listaDisplay = mutableListOf()
-        adaptador = AdaptadorPedido(requireContext(), listaDisplay)
+        adaptador = AdaptadorPedido(requireContext(), listaDisplay) { pedido ->
+
+            val fragment = FragmentPedidosDetalleA().apply {
+                arguments = Bundle().apply {
+                    putString("id_pedido", pedido.id)
+                }
+            }
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.navFragment, fragment)
+                .addToBackStack(null)
+                .commit()
+        }
 
         recyclerPedidos.layoutManager = LinearLayoutManager(requireContext())
         recyclerPedidos.adapter = adaptador
@@ -62,6 +74,7 @@ class FragmentPedidosA : Fragment() {
                 adaptador.notifyDataSetChanged()
             }
         })
+
 
         return view
     }

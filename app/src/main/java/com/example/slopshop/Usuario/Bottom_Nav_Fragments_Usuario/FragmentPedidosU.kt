@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.slopshop.Adaptador.AdaptadorPedido
 import com.example.slopshop.Entidades.Pedido
 import com.example.slopshop.R
+import com.example.slopshop.Usuario.Pedidos.FragmentPedidosDetalleU
 import com.example.slopshop.databinding.FragmentPedidosUBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
@@ -29,7 +30,16 @@ class FragmentPedidosU : Fragment() {
         _binding = FragmentPedidosUBinding.inflate(inflater, container, false)
 
         adaptador = AdaptadorPedido(requireContext(), listaDisplay) { pedido ->
-            //TODO
+            val fragment = FragmentPedidosDetalleU().apply {
+                arguments = Bundle().apply {
+                    putString("id_pedido", pedido.id)
+                    putString("fecha_pedido", pedido.fecha)
+                }
+            }
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.navFragment, fragment)
+                .addToBackStack(null)
+                .commit()
         }
 
         binding.recyclerPedidos.apply {

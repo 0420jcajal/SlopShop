@@ -106,11 +106,56 @@ class FragmentEditarProducto : Fragment() {
             .setMessage("¿Estás seguro de que deseas eliminar este producto? Esta acción no se puede deshacer.")
             .setPositiveButton("Eliminar") { dialog, _ ->
                 dialog.dismiss()
-                eliminarProductoDeFirebase()
+                marcarProductoComoBorrado()
             }
             .setNegativeButton("Cancelar") { dialog, _ -> dialog.dismiss() }
             .show()
     }
+
+    private fun marcarProductoComoBorrado() {
+        val dbRef = FirebaseDatabase.getInstance().getReference("Productos").child(productoId)
+
+        val updates = mapOf<String, Any>(
+            "borrado" to true
+        )
+
+        dbRef.updateChildren(updates).addOnSuccessListener {
+
+            val refCarritos = FirebaseDatabase.getInstance().getReference("Carritos")
+            refCarritos.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    for (userSnap in snapshot.children) {
+                        val uid = userSnap.key ?: continue
+
+                        if (userSnap.hasChild(productoId)) {
+                            refCarritos.child(uid).child(productoId).removeValue()
+                        }
+                    }
+                    Toast.makeText(context, "Producto borrado y carritos limpiados", Toast.LENGTH_SHORT).show()
+
+                    val fragmentProductos =
+                        com.example.slopshop.Administrador.Bottom_Nav_Fragments_Administrador.FragmentProductosA()
+                    requireActivity().supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.navFragment, fragmentProductos)
+                        .commit()
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    Toast.makeText(
+                        context,
+                        "Producto borrado, pero error limpiando carritos: ${error.message}",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            })
+
+        }.addOnFailureListener {
+            Toast.makeText(context, "Error al borrar el producto", Toast.LENGTH_SHORT).show()
+        }
+    }
+/*
+    ESTO LO HE DEJADO COMENTADO PORQUE NO QUIERO QUE SE ELIMINEN LAS FOTOS YA QUE LOS PEDIDOS VIEJOS LAS PERDERIAN
 
     private fun eliminarProductoDeFirebase() {
         val dbRef = FirebaseDatabase.getInstance().getReference("Productos").child(productoId)
@@ -153,7 +198,10 @@ class FragmentEditarProducto : Fragment() {
         }
     }
 
-    private fun eliminarProductoDeBaseDeDatos(dbRef: DatabaseReference) {
+    private fun eliminarProductoDeBaseDeDatos() {
+
+        val dbRef = FirebaseDatabase.getInstance().getReference("Productos").child(productoId)
+
 
         dbRef.removeValue().addOnSuccessListener {
 
@@ -195,7 +243,7 @@ class FragmentEditarProducto : Fragment() {
         }
     }
 
-
+*/
     private fun cargarCategoriasDesdeFirebase() {
         val dbRef = FirebaseDatabase.getInstance().getReference("Categorías")
 
