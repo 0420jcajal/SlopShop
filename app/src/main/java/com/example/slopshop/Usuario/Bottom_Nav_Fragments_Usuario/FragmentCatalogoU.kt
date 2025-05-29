@@ -95,7 +95,7 @@ class FragmentCatalogoU : Fragment() {
             }
         })
 
-        val opcionesSpinner = listOf("Mejor Valorados", "En Oferta", "Últimos publicados")
+        val opcionesSpinner = listOf("Mejor Valorados", "En Oferta", "Últimos publicados", "Mas Baratos")
         val adapterSpinner = ArrayAdapter(mContext, android.R.layout.simple_spinner_item, opcionesSpinner)
         adapterSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.spinnerFiltro.adapter = adapterSpinner
@@ -114,6 +114,8 @@ class FragmentCatalogoU : Fragment() {
                     2 -> {
                         productosFiltrados = ArrayList(listaProductos.sortedByDescending { it.id })
                     }
+                    3 ->  ArrayList(listaProductos.sortedByDescending { it.precio })
+
                     else -> {
                         productosFiltrados = ArrayList(listaProductos)
                     }

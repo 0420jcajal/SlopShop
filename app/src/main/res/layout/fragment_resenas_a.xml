@@ -1,18 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Administrador.Nav_Fragments_Administardor.FragmentResenasA">
+    tools:context=".Administrador.Nav_Fragments_Administardor.FragmentResenasA"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/textTitulo"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:text="Reseñas"
         android:gravity="center"
         android:textSize="30sp"
         android:textStyle="bold"
-        android:fontFamily="@font/handwrite"/>
+        android:fontFamily="@font/handwrite"
+        android:padding="10dp"/>
 
-</FrameLayout>
+    <LinearLayout
+        android:id="@+id/layoutBusqueda"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/textTitulo"
+        android:padding="12dp">
+
+        <EditText
+            android:id="@+id/etBuscarProducto"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Buscar pedido..."
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:padding="12dp"/>
+
+        <Button
+            android:id="@+id/btnFiltrar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Filtrar"
+            android:layout_marginStart="8dp"/>
+
+        <Spinner
+            android:id="@+id/spinnerFiltro"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"/>
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerResenas"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/layoutBusqueda"
+        android:layout_above="@id/btnAtras"
+        android:padding="8dp"
+        tools:listitem="@layout/item_producto_valoracion"/>
+
+    <Button
+        android:id="@+id/btnAtras"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Atrás"
+        android:layout_alignParentBottom="true"
+        android:padding="12dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="60dp"/>
+</RelativeLayout>

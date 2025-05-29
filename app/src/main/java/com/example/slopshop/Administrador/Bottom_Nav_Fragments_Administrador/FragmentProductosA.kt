@@ -17,6 +17,7 @@ import com.example.slopshop.Administrador.Productos.FragmentVerYEditarProducto
 import com.example.slopshop.Entidades.Producto
 import com.example.slopshop.R
 import com.example.slopshop.databinding.FragmentProductosABinding
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 
 class FragmentProductosA : Fragment() {
@@ -26,6 +27,8 @@ class FragmentProductosA : Fragment() {
     private var listaProductos = ArrayList<Producto>()
     private var productosFiltrados = ArrayList<Producto>()
     private lateinit var adaptadorProducto: AdaptadorProducto
+
+    private lateinit var auth: FirebaseAuth
 
     private var currentPage = 0
     private val tamañoPagina = 4
@@ -37,6 +40,7 @@ class FragmentProductosA : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentProductosABinding.inflate(inflater, container, false)
+        auth = FirebaseAuth.getInstance()
         return binding.root
     }
 
@@ -96,7 +100,7 @@ class FragmentProductosA : Fragment() {
         })
 
 
-        val opcionesSpinner = listOf("Mejor Valorados", "En Oferta", "Últimos publicados")
+        val opcionesSpinner = listOf("Mejor Valorados", "En Oferta", "Últimos publicados", "Mas Baratos")
         val adapterSpinner = ArrayAdapter(mContext, android.R.layout.simple_spinner_item, opcionesSpinner)
         adapterSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.spinnerFiltro.adapter = adapterSpinner
@@ -111,6 +115,7 @@ class FragmentProductosA : Fragment() {
                         descuento > 0f && descuento < precio
                     })
                     2 -> ArrayList(listaProductos.sortedByDescending { it.id })
+                    3 ->  ArrayList(listaProductos.sortedByDescending { it.precio })
                     else -> ArrayList(listaProductos)
                 }
                 currentPage = 0
@@ -144,6 +149,7 @@ class FragmentProductosA : Fragment() {
     }
 
     private fun listarProductos() {
+        val uidActual = auth.currentUser?.uid ?: return
         val ref = FirebaseDatabase.getInstance().getReference("Productos")
         ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {

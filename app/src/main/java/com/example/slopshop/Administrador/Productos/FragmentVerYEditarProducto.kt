@@ -69,7 +69,7 @@ class FragmentVerYEditarProducto : Fragment() {
 
 
         binding.btnVerComentarios.setOnClickListener {
-            val fragment = FragmentComentariosProductoA.newInstance(productoId)
+            val fragment = FragmentComentariosProductoA.newInstance(productoId!!)
 
             requireActivity().supportFragmentManager.beginTransaction()
                 .replace(R.id.navFragment, fragment)
